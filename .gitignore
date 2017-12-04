@@ -1,0 +1,8 @@
+target/classes/
+target/endorsed/
+target/generated-sources/
+target/maven-archiver
+target/maven-status/
+target/mesa-ayuda-cgti-1.0-SNAPSHOT/
+target/surefire/
+target/test-classes/
