@@ -15,7 +15,7 @@
     </context-param>-->
     <context-param>
         <param-name>jdbcURL</param-name>
-        <param-value>jdbc:mysql://andreaml.ddns.net:3306/mesa-ayuda?allowMultiQueries=true</param-value>
+        <param-value>jdbc:mysq://andreaml.ddns.net:3306/mesa-ayuda?allowMultiQueries=true</param-value>
     </context-param>
     <context-param>
         <param-name>jdbcUsername</param-name>
