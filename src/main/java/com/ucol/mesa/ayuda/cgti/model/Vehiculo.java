@@ -9,7 +9,7 @@ public class Vehiculo {
     private int anio;
     private String estado;
     private int dependenciaInt;
-    private Dependencia dependencia;
+    private Platillo dependencia;
     private String marca;
     private int nivelGasolina;
 
@@ -22,7 +22,7 @@ public class Vehiculo {
         this.marca=marca;
         this.nivelGasolina=nivelGasolina;
     }
-     public Vehiculo(String id_vehiculo, String modelo, int anio, String estado, Dependencia dependencia, String marca, int nivelGasolina){
+     public Vehiculo(String id_vehiculo, String modelo, int anio, String estado, Platillo dependencia, String marca, int nivelGasolina){
         this.id_vehiculo=id_vehiculo;
         this.modelo=modelo;
         this.anio=anio;
@@ -72,11 +72,11 @@ public class Vehiculo {
         this.dependenciaInt = dependencia;
     }
     
-    public Dependencia getDependencia() {
+    public Platillo getDependencia() {
         return dependencia;
     }
 
-    public void setDependencia(Dependencia dependencia) {
+    public void setDependencia(Platillo dependencia) {
         this.dependencia = dependencia;
     }
 

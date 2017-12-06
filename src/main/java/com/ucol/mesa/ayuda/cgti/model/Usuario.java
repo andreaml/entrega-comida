@@ -5,7 +5,7 @@ package com.ucol.mesa.ayuda.cgti.model;
  */
 public class Usuario extends UsuarioGeneral {
     private int dependenciaInt;
-    private Dependencia dependencia;
+    private Platillo dependencia;
     private int numCuenta;
     private String tipo;
 
@@ -20,18 +20,18 @@ public class Usuario extends UsuarioGeneral {
         this.tipo=tipo;
     }
     
-    public Usuario(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, Dependencia dependencia, int numCuenta, String tipo){
+    public Usuario(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, Platillo dependencia, int numCuenta, String tipo){
         super(correo, nombre1, nombre2, apellidoP, apellidoM);
         this.dependencia=dependencia;
         this.numCuenta=numCuenta;
         this.tipo=tipo;
     }
     
-    public Dependencia getDependencia() {
+    public Platillo getDependencia() {
         return dependencia;
     }
 
-    public void setDependencia(Dependencia dependencia) {
+    public void setDependencia(Platillo dependencia) {
         this.dependencia = dependencia;
     }
 

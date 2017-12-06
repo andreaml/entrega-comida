@@ -2,7 +2,7 @@ package com.ucol.mesa.ayuda.cgti.dao;
 import com.google.gson.Gson;
 import com.ucol.mesa.ayuda.cgti.model.Cliente;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
 
 import java.sql.Connection;
@@ -58,7 +58,7 @@ public class AreaDAO {
         while (resulSet.next()) {
             int id_area = resulSet.getInt("id_area");
             String nombreArea = resulSet.getString("nombre_area");
-            Dependencia dependencia = dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
+            Platillo dependencia = dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
             List<TipoServicio> listaTiposServicio = tipoServicioDAO.listarTipoServicioPorArea(id_area);
             Gson json = new Gson();
             System.out.println(json.toJson("hola"));
@@ -81,7 +81,7 @@ public class AreaDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Dependencia dependencia = dependenciaDAO.obtenerPorId(res.getInt("dependencia"));
+            Platillo dependencia = dependenciaDAO.obtenerPorId(res.getInt("dependencia"));
             area = new Cliente(res.getInt("id_area"), res.getString("nombre_area"), dependencia);
         }
         res.close();

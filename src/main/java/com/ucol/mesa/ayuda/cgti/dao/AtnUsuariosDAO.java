@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Administrador;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,7 +65,7 @@ public class AtnUsuariosDAO {
             String apellido_paterno = resulSet.getString("apellido_paterno");
             String apellido_materno = resulSet.getString("apellido_materno");
             //int dependencia = resulSet.getInt("dependencia");
-            Dependencia dependencia= dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
+            Platillo dependencia= dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
             int num_trabajador = resulSet.getInt("num_trabajador");
 
             Administrador atnusuarios = new Administrador(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador);
@@ -87,7 +87,7 @@ public class AtnUsuariosDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Dependencia dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
+            Platillo dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
             atnusuarios = new Administrador(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), dependencia, res.getInt("num_trabajador"));
         }
         res.close();

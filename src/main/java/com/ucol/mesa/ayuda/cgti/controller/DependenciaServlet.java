@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ucol.mesa.ayuda.cgti.dao.DependenciaDAO;
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -94,7 +94,7 @@ public class DependenciaServlet extends HttpServlet {
     }
     
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
+        Platillo dependencia = new Platillo(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -105,7 +105,7 @@ public class DependenciaServlet extends HttpServlet {
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Dependencia> listaDependencias = dependenciaDAO.listarDependencias();
+        List<Platillo> listaDependencias = dependenciaDAO.listarDependencias();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -114,7 +114,7 @@ public class DependenciaServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Dependencia dependencia = new Dependencia(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
+        Platillo dependencia = new Platillo(request.getParameter("campus"), request.getParameter("nombre_dependencia"), request.getParameter("direccion"));
         dependencia.setId_dependencia(Integer.parseInt(request.getParameter("id_dependencia")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -126,7 +126,7 @@ public class DependenciaServlet extends HttpServlet {
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Dependencia dependencia = dependenciaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_dependencia")));
+        Platillo dependencia = dependenciaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_dependencia")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ucol.mesa.ayuda.cgti.dao.TicketDAO;
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 import com.ucol.mesa.ayuda.cgti.model.Ticket;
 import java.sql.SQLException;
 import java.time.LocalDate;

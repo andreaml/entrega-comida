@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Vehiculo;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,7 +63,7 @@ public class VehiculoDAO {
             int anio = resulSet.getInt("anio");
             String estado = resulSet.getString("estado");
             //int dependencia = resulSet.getInt("dependencia");
-            Dependencia dependencia = dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
+            Platillo dependencia = dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
             String marca = resulSet.getString("marca");
             int nivelGasolina = resulSet.getInt("nivel_gasolina");
 
@@ -86,7 +86,7 @@ public class VehiculoDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Dependencia dependencia = dependenciaDAO.obtenerPorId(res.getInt("dependencia"));
+            Platillo dependencia = dependenciaDAO.obtenerPorId(res.getInt("dependencia"));
             vehiculo = new Vehiculo(res.getString("id_vehiculo"), res.getString("modelo"), res.getInt("anio"), res.getString("estado"), dependencia, res.getString("marca"), res.getInt("nivel_gasolina"));
         }
         res.close();
