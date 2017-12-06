@@ -98,8 +98,7 @@ public class PedidoServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        
-        Pedido pedido = new Pedido(Integer.parseInt(request.getParameter("id_pedido")), request.getParameter("cliente"), request.getParameter("fecha"), request.getParameter("hora"), Float.parseFloat(request.getParameter("costo_total")), request.getParameter("estado_pedido"));
+        Pedido pedido = new Pedido(request.getParameter("cliente"), request.getParameter("fecha"), request.getParameter("hora"), Float.parseFloat(request.getParameter("costo_total")), request.getParameter("estado_pedido"));
         Gson jsonBuilder = new Gson();
         System.out.println(jsonBuilder.toJson(pedido));
         response.setContentType("application/json");
@@ -121,7 +120,8 @@ public class PedidoServlet extends HttpServlet {
 
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Pedido pedido = new Pedido(Integer.parseInt(request.getParameter("id_pedido")), request.getParameter("cliente"), request.getParameter("fecha"), request.getParameter("hora"), Float.parseFloat(request.getParameter("costo_total")), request.getParameter("estado_pedido"));
+        Pedido pedido = new Pedido(request.getParameter("cliente"), request.getParameter("fecha"), request.getParameter("hora"), Float.parseFloat(request.getParameter("costo_total")), request.getParameter("estado_pedido"));
+        pedido.setId_pedido(Integer.parseInt(request.getParameter("id_pedido")));
         Gson jsonBuilder = new Gson();
         System.out.println(jsonBuilder.toJson(request.getParameterMap()));
         response.setContentType("application/json");
@@ -135,7 +135,6 @@ public class PedidoServlet extends HttpServlet {
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Pedido pedido = pedidoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_pedido")));
-        //System.out.println("holamundoeliminado" + pedidoDAO.obtenerPorId(request.getParameter("id_pedido")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter(); 

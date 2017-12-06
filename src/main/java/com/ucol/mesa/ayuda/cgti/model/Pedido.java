@@ -10,9 +10,9 @@ public class Pedido {
     private String hora;
     private float costo_total;
     private String estado_pedido;
+    private Cliente clienteObj;
     
-    public Pedido(int id_pedido, String cliente, String fecha, String hora, float costo_total, String estado_pedido){
-        this.id_pedido = id_pedido;
+    public Pedido(String cliente, String fecha, String hora, float costo_total, String estado_pedido){
         this.cliente = cliente;
         this.fecha = fecha;
         this.hora = hora;
@@ -20,6 +20,15 @@ public class Pedido {
         this.estado_pedido = estado_pedido;
     }
 
+    public Pedido(int id_pedido, Cliente cliente, String fecha, String hora, float costo_total, String estado_pedido){
+        this.id_pedido = id_pedido;
+        this.clienteObj = cliente;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.costo_total = costo_total;
+        this.estado_pedido = estado_pedido;
+    }
+    
     public int getId_pedido() {
         return id_pedido;
     }

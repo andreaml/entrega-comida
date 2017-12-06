@@ -11,8 +11,9 @@ public class Platillo {
     private int num_dia;
     private float costo;
     private String id_administrador;
+    private Administrador administrador;
 
-    public Platillo(int id_platillo, String nombre_platillo, int porcion, String descripcion, int num_dia, float costo, String id_administrador){
+    public Platillo(String nombre_platillo, int porcion, String descripcion, int num_dia, float costo, String id_administrador){
         this.id_platillo=id_platillo;
         this.nombre_platillo=nombre_platillo;
         this.porcion= porcion;
@@ -20,6 +21,16 @@ public class Platillo {
         this.num_dia= num_dia;
         this.costo= costo;
         this.id_administrador= id_administrador;
+    }
+    
+    public Platillo(int id_platillo, String nombre_platillo, int porcion, String descripcion, int num_dia, float costo, Administrador administrador){
+        this.id_platillo=id_platillo;
+        this.nombre_platillo=nombre_platillo;
+        this.porcion= porcion;
+        this.descripcion= descripcion;
+        this.num_dia= num_dia;
+        this.costo= costo;
+        this.administrador= administrador;
     }
 
     public int getId_platillo() {
