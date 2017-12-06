@@ -6,7 +6,7 @@
 package com.ucol.mesa.ayuda.cgti.controller;
 import com.google.gson.Gson;
 import com.ucol.mesa.ayuda.cgti.dao.AreaDAO;
-import com.ucol.mesa.ayuda.cgti.model.Area;
+import com.ucol.mesa.ayuda.cgti.model.Cliente;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -97,7 +97,7 @@ private static final long serialVersionUID = 1L;
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Area area = new Area(request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        Cliente area = new Cliente(request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -107,7 +107,7 @@ private static final long serialVersionUID = 1L;
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Area> listaArea = areaDAO.listarArea();
+        List<Cliente> listaArea = areaDAO.listarArea();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -117,7 +117,7 @@ private static final long serialVersionUID = 1L;
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Area area = new Area(Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        Cliente area = new Cliente(Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
         Gson jsonBuilder = new Gson();
         System.out.println(jsonBuilder.toJson(request.getParameterMap()));
         response.setContentType("application/json");
@@ -128,7 +128,7 @@ private static final long serialVersionUID = 1L;
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Area area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
+        Cliente area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

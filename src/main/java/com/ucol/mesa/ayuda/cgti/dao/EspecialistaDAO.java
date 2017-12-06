@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 import com.ucol.mesa.ayuda.cgti.model.Especialista;
-import com.ucol.mesa.ayuda.cgti.model.Area;
+import com.ucol.mesa.ayuda.cgti.model.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,7 +65,7 @@ public class EspecialistaDAO {
             String apellidoP = resulSet.getString("apellido_paterno");
             String apellidoM = resulSet.getString("apellido_materno");
             //int area = resulSet.getInt("area");
-            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
+            Cliente area = areaDAO.obtenerPorId(resulSet.getInt("area"));
             int numTrabajador = resulSet.getInt("num_trabajador");
             String profesion = resulSet.getString("profesion");
 
@@ -94,7 +94,7 @@ public class EspecialistaDAO {
             String apellidoP = resulSet.getString("apellido_paterno");
             String apellidoM = resulSet.getString("apellido_materno");
             //int area = resulSet.getInt("area");
-            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
+            Cliente area = areaDAO.obtenerPorId(resulSet.getInt("area"));
             int numTrabajador = resulSet.getInt("num_trabajador");
             String profesion = resulSet.getString("profesion");
 
@@ -116,7 +116,7 @@ public class EspecialistaDAO {
         statement.setString(1, correo);
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Area area = areaDAO.obtenerPorId(res.getInt("area"));
+            Cliente area = areaDAO.obtenerPorId(res.getInt("area"));
             especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
             especialista.setContrasenia(res.getString("contrasenia"));
         }
@@ -138,7 +138,7 @@ public class EspecialistaDAO {
         statement.setString(2, contrasenia);
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Area area = areaDAO.obtenerPorId(res.getInt("area"));
+            Cliente area = areaDAO.obtenerPorId(res.getInt("area"));
             especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
             especialista.setContrasenia(res.getString("contrasenia"));
         }

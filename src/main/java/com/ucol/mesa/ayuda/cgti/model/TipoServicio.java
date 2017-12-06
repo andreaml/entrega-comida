@@ -7,7 +7,7 @@ public class TipoServicio {
     private int id_tipo_servicio;
     private String nombreTipoServicio;
     private int areaInt;
-    private Area area;
+    private Cliente area;
     
     public TipoServicio(String nombreTipoServicio, int area){
         this.nombreTipoServicio=nombreTipoServicio;
@@ -20,7 +20,7 @@ public class TipoServicio {
         this.areaInt=area;
     }
     
-     public TipoServicio(int id_tipo_servicio, String nombreTipoServicio, Area area){
+     public TipoServicio(int id_tipo_servicio, String nombreTipoServicio, Cliente area){
         this.id_tipo_servicio= id_tipo_servicio;
         this.nombreTipoServicio=nombreTipoServicio;
         this.area=area;
@@ -42,11 +42,11 @@ public class TipoServicio {
         this.nombreTipoServicio = nombreTipoServicio;
     }
 
-    public Area getArea() {
+    public Cliente getArea() {
         return area;
     }
 
-    public void setArea(Area area) {
+    public void setArea(Cliente area) {
         this.area = area;
     }
     

@@ -5,7 +5,7 @@ package com.ucol.mesa.ayuda.cgti.model;
  */
 public class Especialista extends UsuarioGeneral{
     private int areaInt;
-    private Area areaArea;
+    private Cliente areaArea;
     private int numTrabajador;
     private String contrasenia;
     private String profesion;
@@ -21,7 +21,7 @@ public class Especialista extends UsuarioGeneral{
         this.profesion=profesion;
     }
     
-    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, Area area, int numTrabajador, String profesion){
+    public Especialista(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM, Cliente area, int numTrabajador, String profesion){
         super(correo, nombre1, nombre2, apellidoP, apellidoM);
         this.areaArea=area;
         this.numTrabajador=numTrabajador;
@@ -36,11 +36,11 @@ public class Especialista extends UsuarioGeneral{
         this.areaInt = area;
     }
     
-    public Area getAreaArea() {
+    public Cliente getAreaArea() {
         return areaArea;
     }
 
-    public void setAreaArea(Area area) {
+    public void setAreaArea(Cliente area) {
         this.areaArea = area;
     }
 

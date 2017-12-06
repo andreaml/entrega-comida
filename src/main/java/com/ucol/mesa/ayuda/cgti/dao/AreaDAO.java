@@ -1,6 +1,6 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.google.gson.Gson;
-import com.ucol.mesa.ayuda.cgti.model.Area;
+import com.ucol.mesa.ayuda.cgti.model.Cliente;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 import com.ucol.mesa.ayuda.cgti.model.Dependencia;
 import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
@@ -31,7 +31,7 @@ public class AreaDAO {
     }
 
     //Agregar Area
-    public boolean insertar(Area area) throws SQLException {
+    public boolean insertar(Cliente area) throws SQLException {
         String sql = "INSERT INTO AREA(nombre_area, dependencia) VALUES (?,?)";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -46,9 +46,9 @@ public class AreaDAO {
     }
     
     // listar todas las areas
-    public List<Area> listarArea() throws SQLException {
+    public List<Cliente> listarArea() throws SQLException {
 
-        List<Area> listaArea = new ArrayList<Area>();
+        List<Cliente> listaArea = new ArrayList<Cliente>();
         String sql = "SELECT * FROM AREA";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -62,7 +62,7 @@ public class AreaDAO {
             List<TipoServicio> listaTiposServicio = tipoServicioDAO.listarTipoServicioPorArea(id_area);
             Gson json = new Gson();
             System.out.println(json.toJson("hola"));
-            Area area = new Area(id_area, nombreArea, dependencia, listaTiposServicio);
+            Cliente area = new Cliente(id_area, nombreArea, dependencia, listaTiposServicio);
             listaArea.add(area);
         }
         conexionBD.desconectar();
@@ -70,8 +70,8 @@ public class AreaDAO {
     }
     
     //Obtener por id
-    public Area obtenerPorId(int id_area) throws SQLException {
-        Area area = null;
+    public Cliente obtenerPorId(int id_area) throws SQLException {
+        Cliente area = null;
 
         String sql = "SELECT * FROM AREA WHERE id_area=?";
         conexionBD.conectar();
@@ -82,7 +82,7 @@ public class AreaDAO {
         ResultSet res = statement.executeQuery();
         if (res.next()) {
             Dependencia dependencia = dependenciaDAO.obtenerPorId(res.getInt("dependencia"));
-            area = new Area(res.getInt("id_area"), res.getString("nombre_area"), dependencia);
+            area = new Cliente(res.getInt("id_area"), res.getString("nombre_area"), dependencia);
         }
         res.close();
         conexionBD.desconectar();
@@ -91,7 +91,7 @@ public class AreaDAO {
     }
     
     //Actualizar
-    public boolean actualizar(Area area) throws SQLException {
+    public boolean actualizar(Cliente area) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE AREA SET nombre_area=?, dependencia=? WHERE id_area=?";
         conexionBD.conectar();
@@ -107,7 +107,7 @@ public class AreaDAO {
     }
     
     //eliminar
-    public boolean eliminar(Area area) throws SQLException {
+    public boolean eliminar(Cliente area) throws SQLException {
         boolean rowEliminar = false;
         String sql = "DELETE FROM AREA WHERE id_area=?";
         conexionBD.conectar();

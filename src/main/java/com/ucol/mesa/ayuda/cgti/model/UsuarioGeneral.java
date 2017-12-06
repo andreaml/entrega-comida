@@ -5,19 +5,20 @@ package com.ucol.mesa.ayuda.cgti.model;
  */
 public class UsuarioGeneral {
     private String correo;
-    private String nombre1;
-    private String nombre2;
-    private String apellidoP;
-    private String apellidoM;
+    private String primer_nombre;
+    private String segundo_nombre;
+    private String apellido_paterno;
+    private String apellido_materno;
+
 
     public UsuarioGeneral(){}
     
     public UsuarioGeneral(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM){
         this.correo=correo;
-        this.nombre1=nombre1;
-        this.nombre2=nombre2;
-        this.apellidoP=apellidoP;
-        this.apellidoM=apellidoM;
+        this.primer_nombre=nombre1;
+        this.segundo_nombre=nombre2;
+        this.apellido_paterno=apellidoP;
+        this.apellido_materno=apellidoM;
     }
     
     public String getCorreo() {
@@ -28,35 +29,36 @@ public class UsuarioGeneral {
         this.correo = correo;
     }
 
-    public String getNombre1() {
-        return nombre1;
+    public String getPrimer_nombre() {
+        return primer_nombre;
     }
 
-    public void setNombre1(String nombre1) {
-        this.nombre1 = nombre1;
+    public void setPrimer_nombre(String primer_nombre) {
+        this.primer_nombre = primer_nombre;
     }
 
-    public String getNombre2() {
-        return nombre2;
+    public String getSegundo_nombre() {
+        return segundo_nombre;
     }
 
-    public void setNombre2(String nombre2) {
-        this.nombre2 = nombre2;
+    public void setSegundo_nombre(String segundo_nombre) {
+        this.segundo_nombre = segundo_nombre;
     }
 
-    public String getApellidoP() {
-        return apellidoP;
+    public String getApellido_paterno() {
+        return apellido_paterno;
     }
 
-    public void setApellidoP(String apellidoP) {
-        this.apellidoP = apellidoP;
+    public void setApellido_paterno(String apellido_paterno) {
+        this.apellido_paterno = apellido_paterno;
     }
 
-    public String getApellidoM() {
-        return apellidoM;
+    public String getApellido_materno() {
+        return apellido_materno;
     }
 
-    public void setApellidoM(String apellidoM) {
-        this.apellidoM = apellidoM;
+    public void setApellido_materno(String apellido_materno) {
+        this.apellido_materno = apellido_materno;
     }
+
 }
