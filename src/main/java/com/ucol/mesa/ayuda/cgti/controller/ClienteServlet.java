@@ -92,7 +92,7 @@ public class ClienteServlet extends HttpServlet {
         //RequestDispatcher dispatcher = request.getRequestDispatcher("atnUsuarios/mostrar.jsp");
         //dispatcher.forward(request, response);
         ServletContext servletContext= request.getServletContext();
-        servletContext.getRequestDispatcher("/atnUsuarios/mostrar.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/cliente/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

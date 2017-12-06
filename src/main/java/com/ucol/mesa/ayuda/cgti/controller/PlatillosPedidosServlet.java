@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
@@ -8,20 +13,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.AdministradorDAO;
-import com.ucol.mesa.ayuda.cgti.model.Administrador;
+import com.ucol.mesa.ayuda.cgti.dao.PlatillosPedidosDAO;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 
-
 /**
- * @author cmiranda
+ *
+ * @author andreaml
  */
-public class AdministradorServlet extends HttpServlet {
+public class PlatillosPedidosServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    AdministradorDAO administradorDAO;
+    PlatillosPedidosDAO platillosPedidosDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -29,13 +34,13 @@ public class AdministradorServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            administradorDAO = new AdministradorDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            platillosPedidosDAO = new PlatillosPedidosDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public AdministradorServlet() {
+    public PlatillosPedidosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -92,65 +97,49 @@ public class AdministradorServlet extends HttpServlet {
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext= request.getServletContext();
-        servletContext.getRequestDispatcher("/administrador/mostrar.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/platillos-pedidos/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
-        administradorDAO.insertar(administrador);
+        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")), Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        platillosPedidosDAO.insertar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(administrador));
+        out.print(jsonBuilder.toJson(platillosPedidos));
+
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Administrador> listaAdministrador = administradorDAO.listarAdministrador();
+        List<PlatillosPedidos> listaPlatillosPedidos = platillosPedidosDAO.listarPlatillosPedidos();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaAdministrador));
+        out.print(jsonBuilder.toJson(listaPlatillosPedidos));
     }
-    
-    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(administrador));
-    } 
-    
-//    private void mostrarPorArea(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-//        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
-//        response.setContentType("application/json");
-//        response.setCharacterEncoding("utf-8");
-//        PrintWriter out = response.getWriter();
-//        Gson jsonBuilder = new Gson();
-//        out.print(jsonBuilder.toJson(listaEspecialista));
-//    }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
-        administradorDAO.actualizar(administrador, request.getParameter("correoViejo"));
+        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")), Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        platillosPedidosDAO.actualizar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(administrador));
+        out.print(jsonBuilder.toJson(platillosPedidos));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
+        PlatillosPedidos platillosPedidos = platillosPedidosDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_platillos_pedidos")));
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        administradorDAO.eliminar(administrador);
+        platillosPedidosDAO.eliminar(platillosPedidos);
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(administrador));
+        out.print(jsonBuilder.toJson(platillosPedidos));
     }
 }

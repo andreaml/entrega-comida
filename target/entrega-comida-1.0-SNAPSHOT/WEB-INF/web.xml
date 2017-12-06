@@ -55,7 +55,7 @@
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.BD_ConocimientoServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatillosPedidosServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-TipoServicioServlet</servlet-name>
