@@ -17,18 +17,16 @@ import java.util.List;
 public class ClienteDAO {
     private ConexionBD conexionBD;
     private Connection connection;
-    private DependenciaDAO dependenciaDAO;
 
     public ClienteDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         System.out.println(jdbcURL);
         conexionBD = new ConexionBD(jdbcURL, jdbcUsername, jdbcPassword);
-        dependenciaDAO = new DependenciaDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     //Agregar nombreUsuario
     public boolean insertar(Cliente cliente) throws SQLException {
         
-        String sql = "INSERT INTO cliente(correo, contrasenia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, telefono, fecha_nacimiento, domicilio, longitud, latitud) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente(correo, contrasenia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, telefono, fecha_nacimiento, domicilio, longitud, latitud) VALUES (?,PASSWORD(?),?,?,?,?,?,?,?,?,?)";
         
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -57,7 +55,7 @@ public class ClienteDAO {
     public List<Cliente> listarClientes() throws SQLException {
 
         List<Cliente> listaClientes = new ArrayList<Cliente>();
-        String sql = "SELECT * FROM USUARIO";
+        String sql = "SELECT * FROM cliente";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         Statement statement = connection.createStatement();
@@ -86,7 +84,7 @@ public class ClienteDAO {
     public Cliente obtenerPorId(String correo) throws SQLException {
         Cliente cliente = null;
 
-        String sql = "SELECT * FROM USUARIO WHERE correo=?";
+        String sql = "SELECT * FROM cliente WHERE correo=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
