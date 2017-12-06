@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
@@ -13,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.VehiculoDAO;
-import com.ucol.mesa.ayuda.cgti.model.Vehiculo;
+import com.ucol.mesa.ayuda.cgti.dao.AdministradorDAO;
+import com.ucol.mesa.ayuda.cgti.model.Administrador;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 
+
 /**
- *
- * @author andreaml
+ * @author cmiranda
  */
-public class VehiculoServlet extends HttpServlet {
+public class AdministradorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    VehiculoDAO vehiculoDAO;
+    AdministradorDAO administradorDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -34,13 +29,13 @@ public class VehiculoServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            vehiculoDAO = new VehiculoDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            administradorDAO = new AdministradorDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public VehiculoServlet() {
+    public AdministradorServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -63,6 +58,9 @@ public class VehiculoServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
+                        break;
                     case "editar":
                         editar(request, response);
                         break;
@@ -83,7 +81,7 @@ public class VehiculoServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.print(e.getSQLState());
             }
-        }       
+        }  
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -93,54 +91,66 @@ public class VehiculoServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/vehiculos/mostrar.jsp").forward(request, response);
+        ServletContext servletContext= request.getServletContext();
+        servletContext.getRequestDispatcher("/administrador/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        
-        Vehiculo vehiculo = new Vehiculo(request.getParameter("numero_placa"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivel_gasolina")));
-        Gson jsonBuilder = new Gson();
-        System.out.println(jsonBuilder.toJson(vehiculo));
+        Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
+        administradorDAO.insertar(administrador);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        vehiculoDAO.insertar(vehiculo);
-        out.print(jsonBuilder.toJson(vehiculo));
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(administrador));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        System.out.println("entra mostrar");
-        List<Vehiculo> listaVehiculos = vehiculoDAO.listarVehiculos();
+        List<Administrador> listaAdministrador = administradorDAO.listarAdministrador();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaVehiculos));
+        out.print(jsonBuilder.toJson(listaAdministrador));
     }
-
+    
+    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(administrador));
+    } 
+    
+//    private void mostrarPorArea(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+//        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("utf-8");
+//        PrintWriter out = response.getWriter();
+//        Gson jsonBuilder = new Gson();
+//        out.print(jsonBuilder.toJson(listaEspecialista));
+//    }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Vehiculo vehiculo = new Vehiculo(request.getParameter("id_vehiculo"), request.getParameter("modelo"), Integer.parseInt(request.getParameter("anio")), request.getParameter("estado"), Integer.parseInt(request.getParameter("dependencia")), request.getParameter("marca"), Integer.parseInt(request.getParameter("nivel_gasolina")));
-        Gson jsonBuilder = new Gson();
-        System.out.println(jsonBuilder.toJson(request.getParameterMap()));
+        Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
+        administradorDAO.actualizar(administrador, request.getParameter("correoViejo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println( "HolaMundo" + vehiculoDAO.actualizar(vehiculo, request.getParameter("id_vehiculoViejo")));
-        vehiculoDAO.actualizar(vehiculo, request.getParameter("id_vehiculoViejo"));
-        out.print(jsonBuilder.toJson(vehiculo));
-        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(administrador));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Vehiculo vehiculo = vehiculoDAO.obtenerPorId(request.getParameter("id_vehiculo"));
-        System.out.println("holamundoeliminado" + vehiculoDAO.obtenerPorId(request.getParameter("id_vehiculo")));
+        Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter(); 
-        vehiculoDAO.eliminar(vehiculo);
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());  
+        administradorDAO.eliminar(administrador);
+        
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(vehiculo));
+        out.print(jsonBuilder.toJson(administrador));
     }
 }

@@ -4,28 +4,29 @@
  * and open the template in the editor.
  */
 package com.ucol.mesa.ayuda.cgti.controller;
-import com.google.gson.Gson;
-import com.ucol.mesa.ayuda.cgti.dao.AreaDAO;
-import com.ucol.mesa.ayuda.cgti.model.Cliente;
-import java.sql.SQLException;
-import java.util.List;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ucol.mesa.ayuda.cgti.dao.PedidoDAO;
+import com.ucol.mesa.ayuda.cgti.model.Pedido;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 
 /**
  *
- * @author ricar
+ * @author andreaml
  */
-public class AreaServlet extends HttpServlet {
-private static final long serialVersionUID = 1L;
-    AreaDAO areaDAO;
+public class PedidoServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    PedidoDAO pedidoDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -33,13 +34,13 @@ private static final long serialVersionUID = 1L;
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            areaDAO = new AreaDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            pedidoDAO = new PedidoDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public AreaServlet() {
+    public PedidoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -93,47 +94,53 @@ private static final long serialVersionUID = 1L;
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/areas/mostrar.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/pedido/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Cliente area = new Cliente(request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        
+        Pedido pedido = new Pedido(Integer.parseInt(request.getParameter("id_pedido")), request.getParameter("cliente"), request.getParameter("fecha"), request.getParameter("hora"), Float.parseFloat(request.getParameter("costo_total")), request.getParameter("estado_pedido"));
+        Gson jsonBuilder = new Gson();
+        System.out.println(jsonBuilder.toJson(pedido));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        areaDAO.insertar(area);
-        Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(area));
+        pedidoDAO.insertar(pedido);
+        out.print(jsonBuilder.toJson(pedido));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Cliente> listaArea = areaDAO.listarArea();
+        System.out.println("entra mostrar");
+        List<Pedido> listaPedidos = pedidoDAO.listarPedidos();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaArea));
-
+        out.print(jsonBuilder.toJson(listaPedidos));
     }
 
+
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Cliente area = new Cliente(Integer.parseInt(request.getParameter("id_area")), request.getParameter("nombre_area"),  Integer.parseInt(request.getParameter("dependencia")));
+        Pedido pedido = new Pedido(Integer.parseInt(request.getParameter("id_pedido")), request.getParameter("cliente"), request.getParameter("fecha"), request.getParameter("hora"), Float.parseFloat(request.getParameter("costo_total")), request.getParameter("estado_pedido"));
         Gson jsonBuilder = new Gson();
         System.out.println(jsonBuilder.toJson(request.getParameterMap()));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        areaDAO.actualizar(area);
-        out.print(jsonBuilder.toJson(area));
+        //System.out.println( "HolaMundo" + vehiculoDAO.actualizar(vehiculo, request.getParameter("id_vehiculoViejo")));
+        pedidoDAO.actualizar(pedido);
+        out.print(jsonBuilder.toJson(pedido));
+        
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Cliente area = areaDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_area")));
+        Pedido pedido = pedidoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_pedido")));
+        //System.out.println("holamundoeliminado" + pedidoDAO.obtenerPorId(request.getParameter("id_pedido")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        areaDAO.eliminar(area);
+        PrintWriter out = response.getWriter(); 
+        pedidoDAO.eliminar(pedido);
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(area));
+        out.print(jsonBuilder.toJson(pedido));
     }
 }

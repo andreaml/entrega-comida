@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
@@ -8,19 +13,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
-import com.ucol.mesa.ayuda.cgti.model.Administrador;
+import com.ucol.mesa.ayuda.cgti.dao.PlatillosPedidosDAO;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 
 /**
- * @author cmiranda
+ *
+ * @author andreaml
  */
-public class AtnUsuariosServlet extends HttpServlet {
+public class PlatillosPedidosServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    AtnUsuariosDAO atnUsuariosDAO;
+    PlatillosPedidosDAO platillosPedidosDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -28,13 +34,13 @@ public class AtnUsuariosServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            atnUsuariosDAO = new AtnUsuariosDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            platillosPedidosDAO = new PlatillosPedidosDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public AtnUsuariosServlet() {
+    public PlatillosPedidosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,6 +63,9 @@ public class AtnUsuariosServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
+                        break;
                     case "editar":
                         editar(request, response);
                         break;
@@ -67,19 +76,17 @@ public class AtnUsuariosServlet extends HttpServlet {
                         break;
                 }
             } catch (SQLException e) {
-                e.getStackTrace();
                 PrintWriter out = response.getWriter();
                 out.print(e.getSQLState());
             }
-        }else{
+        } else {
             try {
                 index(request, response);
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
                 out.print(e.getSQLState());
             }
-        }
-        
+        }  
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -89,56 +96,50 @@ public class AtnUsuariosServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("atnUsuarios/mostrar.jsp");
-        //dispatcher.forward(request, response);
         ServletContext servletContext= request.getServletContext();
-        servletContext.getRequestDispatcher("/atnUsuarios/mostrar.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/platillos-pedidos/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Administrador atnUsuario = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
+        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")), Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        platillosPedidosDAO.insertar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println(response.toString());
-        atnUsuariosDAO.insertar(atnUsuario);
-
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(atnUsuario));
+        out.print(jsonBuilder.toJson(platillosPedidos));
+
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Administrador> listaAtnUsuarios = atnUsuariosDAO.listarAtnUsuarios();
+        List<PlatillosPedidos> listaPlatillosPedidos = platillosPedidosDAO.listarPlatillosPedidos();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaAtnUsuarios));
+        out.print(jsonBuilder.toJson(listaPlatillosPedidos));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Administrador atnUsuario = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
+        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")), Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        platillosPedidosDAO.actualizar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println(response.toString()); 
-        atnUsuariosDAO.actualizar(atnUsuario, request.getParameter("correoViejo"));
-        
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(atnUsuario));
+        out.print(jsonBuilder.toJson(platillosPedidos));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Administrador atnUsuario = atnUsuariosDAO.obtenerPorId(request.getParameter("correo"));
+        PlatillosPedidos platillosPedidos = platillosPedidosDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_platillos_pedidos")));
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        atnUsuariosDAO.eliminar(atnUsuario);
+        platillosPedidosDAO.eliminar(platillosPedidos);
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(atnUsuario));
+        out.print(jsonBuilder.toJson(platillosPedidos));
     }
-    
 }

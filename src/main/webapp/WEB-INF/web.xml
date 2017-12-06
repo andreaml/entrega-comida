@@ -30,44 +30,24 @@
         <jsp-file>/atnUsuarios/inicio.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuarios-UsuarioServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.UsuarioServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.VehiculoServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PedidoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ServicioServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AtnUsuarios-DependenciaServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.DependenciaServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatilloServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.EspecialistaServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AdministradorServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-AtnUsuariosServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AtnUsuariosServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ClienteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.BD_ConocimientoServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AtnUsuarios-TipoServicioServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.TipoServicioServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AtnUsuarios-TicketServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.TicketServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReporteServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ReporteServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatillosPedidosServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
@@ -93,17 +73,9 @@
         <servlet-name>Especialista-Tickets</servlet-name>
         <jsp-file>/seccionEspecialista/tickets.jsp</jsp-file>
     </servlet>
-    <servlet>
-        <servlet-name>InicioSesionServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioSesionServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>AtnUsuarios-Inicio</servlet-name>
         <url-pattern>/atencion-usuarios</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-UsuarioServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/usuarios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
@@ -112,10 +84,6 @@
     <servlet-mapping>
         <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
         <url-pattern>/atencion-usuarios/servicios</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-DependenciaServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/dependencias</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
@@ -128,18 +96,6 @@
     <servlet-mapping>
         <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
         <url-pattern>/atencion-usuarios/base-datos-conocimiento</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-TipoServicioServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/tipo-servicio</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-TicketServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/tickets</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReporteServlet</servlet-name>
-        <url-pattern>/reportes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
@@ -164,9 +120,5 @@
     <servlet-mapping>
         <servlet-name>Especialista-Tickets</servlet-name>
         <url-pattern>/especialista/tickets</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>InicioSesionServlet</servlet-name>
-        <url-pattern>/inicio-sesion</url-pattern>
     </servlet-mapping>
 </web-app>

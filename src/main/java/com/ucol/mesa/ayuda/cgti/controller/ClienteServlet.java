@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ucol.mesa.ayuda.cgti.controller;
 
 import com.google.gson.Gson;
@@ -13,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.TipoServicioDAO;
-import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
+import com.ucol.mesa.ayuda.cgti.dao.ClienteDAO;
+import com.ucol.mesa.ayuda.cgti.model.Cliente;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 
 /**
- *
- * @author andreaml
+ * @author cmiranda
  */
-public class TipoServicioServlet extends HttpServlet {
+public class ClienteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    TipoServicioDAO tipoServicioDAO;
+    ClienteDAO clienteDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -34,13 +28,13 @@ public class TipoServicioServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            tipoServicioDAO = new TipoServicioDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            clienteDAO = new ClienteDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public TipoServicioServlet() {
+    public ClienteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -73,17 +67,19 @@ public class TipoServicioServlet extends HttpServlet {
                         break;
                 }
             } catch (SQLException e) {
+                e.getStackTrace();
                 PrintWriter out = response.getWriter();
-                out.print(e);
+                out.print(e.getSQLState());
             }
-        } else {
+        }else{
             try {
                 index(request, response);
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
                 out.print(e.getSQLState());
             }
-        }       
+        }
+        
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -93,48 +89,56 @@ public class TipoServicioServlet extends HttpServlet {
     }
     
     private void index(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        ServletContext servletContext = request.getServletContext();
-        servletContext.getRequestDispatcher("/index.jsp").forward(request, response);
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("atnUsuarios/mostrar.jsp");
+        //dispatcher.forward(request, response);
+        ServletContext servletContext= request.getServletContext();
+        servletContext.getRequestDispatcher("/cliente/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        TipoServicio tipoServicio = new TipoServicio(request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
+        Cliente cliente = new Cliente(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), request.getParameter("telefono"), request.getParameter("fecha_nacimiento"), request.getParameter("domicilio"), Float.parseFloat(request.getParameter("longitud")), Float.parseFloat(request.getParameter("latitud")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());
-        tipoServicioDAO.insertar(tipoServicio);
+        clienteDAO.insertar(cliente);
+
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(tipoServicio));
+        out.print(jsonBuilder.toJson(cliente));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<TipoServicio> listaTipoServicio = tipoServicioDAO.listarTipoServicio();
+        List<Cliente> listaClientes = clienteDAO.listarClientes();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
+        
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaTipoServicio));
+        out.print(jsonBuilder.toJson(listaClientes));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        TipoServicio tipoServicio = new TipoServicio(Integer.parseInt(request.getParameter("id_tipo_servicio")),request.getParameter("nombre_tipo_servicio"), Integer.parseInt(request.getParameter("area")));
-        Gson jsonBuilder = new Gson();
-        System.out.println(jsonBuilder.toJson(request.getParameterMap()));
+        Cliente cliente = new Cliente(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), request.getParameter("telefono"), request.getParameter("fecha_nacimiento"), request.getParameter("domicilio"), Float.parseFloat(request.getParameter("longitud")), Float.parseFloat(request.getParameter("latitud")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        tipoServicioDAO.actualizar(tipoServicio);
-        out.print(jsonBuilder.toJson(tipoServicio));
+        System.out.println(response.toString()); 
+        clienteDAO.actualizar(cliente, request.getParameter("correoViejo"));
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(cliente));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        TipoServicio tipoServicio = tipoServicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_tipo_servicio")));
+        Cliente cliente = clienteDAO.obtenerPorId(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        tipoServicioDAO.eliminar(tipoServicio);
+        System.out.println(response.toString());  
+        clienteDAO.eliminar(cliente);
+        
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(tipoServicio));
+        out.print(jsonBuilder.toJson(cliente));
     }
+    
 }
