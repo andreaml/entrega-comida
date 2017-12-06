@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ucol.mesa.ayuda.cgti.dao.BD_ConocimientoDAO;
-import com.ucol.mesa.ayuda.cgti.model.BD_Conocimiento;
+import com.ucol.mesa.ayuda.cgti.model.Pedido;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -93,7 +93,7 @@ public class BD_ConocimientoServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        BD_Conocimiento bd_conocimiento = new BD_Conocimiento(Integer.parseInt(request.getParameter("id")), Integer.parseInt(request.getParameter("reporte")), Integer.parseInt(request.getParameter("ticket")));
+        Pedido bd_conocimiento = new Pedido(Integer.parseInt(request.getParameter("id")), Integer.parseInt(request.getParameter("reporte")), Integer.parseInt(request.getParameter("ticket")));
         bdConocimientoDAO.insertar(bd_conocimiento);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -107,13 +107,13 @@ public class BD_ConocimientoServlet extends HttpServlet {
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/bd_conocimientos/mostrar.jsp");
-        List<BD_Conocimiento> listaBD_Conocimientos = bdConocimientoDAO.listarBD_Conocimiento();
+        List<Pedido> listaBD_Conocimientos = bdConocimientoDAO.listarBD_Conocimiento();
         request.setAttribute("lista", listaBD_Conocimientos);
         dispatcher.forward(request, response);
     }
 
     private void showEditar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        BD_Conocimiento bd_conocimiento = bdConocimientoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
+        Pedido bd_conocimiento = bdConocimientoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
         request.setAttribute("bd_conocimiento", bd_conocimiento);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/bd_conocimientos/editar.jsp");
@@ -121,14 +121,14 @@ public class BD_ConocimientoServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        BD_Conocimiento bd_conocimiento = new BD_Conocimiento(Integer.parseInt(request.getParameter("id")), Integer.parseInt(request.getParameter("reporte")), Integer.parseInt(request.getParameter("ticket")));
+        Pedido bd_conocimiento = new Pedido(Integer.parseInt(request.getParameter("id")), Integer.parseInt(request.getParameter("reporte")), Integer.parseInt(request.getParameter("ticket")));
 
         bdConocimientoDAO.actualizar(bd_conocimiento);
         index(request, response);
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        BD_Conocimiento bd_conocimiento = bdConocimientoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
+        Pedido bd_conocimiento = bdConocimientoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id")));
         bdConocimientoDAO.eliminar(bd_conocimiento);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);

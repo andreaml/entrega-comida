@@ -1,5 +1,5 @@
 package com.ucol.mesa.ayuda.cgti.dao;
-import com.ucol.mesa.ayuda.cgti.model.BD_Conocimiento;
+import com.ucol.mesa.ayuda.cgti.model.Pedido;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 
 import java.sql.Connection;
@@ -24,7 +24,7 @@ public class BD_ConocimientoDAO {
     }
 
     //Agregar conocimiento
-    public boolean insertar(BD_Conocimiento bd_conocimiento) throws SQLException {
+    public boolean insertar(Pedido bd_conocimiento) throws SQLException {
         String sql = "INSERT INTO BD_CONOCIMIENTO(id, reporte, ticket) VALUES (?,?,?)";
         System.out.println(bd_conocimiento.getId());
         conexionBD.conectar();
@@ -41,9 +41,9 @@ public class BD_ConocimientoDAO {
     }
     
     // listar conocimiento
-    public List<BD_Conocimiento> listarBD_Conocimiento() throws SQLException {
+    public List<Pedido> listarBD_Conocimiento() throws SQLException {
 
-        List<BD_Conocimiento> listaBD_Conocimiento = new ArrayList<BD_Conocimiento>();
+        List<Pedido> listaBD_Conocimiento = new ArrayList<Pedido>();
         String sql = "SELECT * FROM BD_CONOCIMIENTO";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -55,7 +55,7 @@ public class BD_ConocimientoDAO {
             int reporte = resulSet.getInt("reporte");
             int ticket = resulSet.getInt("ticket");
 
-            BD_Conocimiento bd_conocimiento = new BD_Conocimiento(id, reporte, ticket);
+            Pedido bd_conocimiento = new Pedido(id, reporte, ticket);
             listaBD_Conocimiento.add(bd_conocimiento);
         }
         conexionBD.desconectar();
@@ -63,8 +63,8 @@ public class BD_ConocimientoDAO {
     }
     
     //Obtener por id
-    public BD_Conocimiento obtenerPorId(int id) throws SQLException {
-        BD_Conocimiento bd_conocimiento = null;
+    public Pedido obtenerPorId(int id) throws SQLException {
+        Pedido bd_conocimiento = null;
 
         String sql = "SELECT * FROM BD_CONOCIMIENTO WHERE id=?";
         conexionBD.conectar();
@@ -74,7 +74,7 @@ public class BD_ConocimientoDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            bd_conocimiento = new BD_Conocimiento(res.getInt("id"), res.getInt("reporte"), res.getInt("ticket"));
+            bd_conocimiento = new Pedido(res.getInt("id"), res.getInt("reporte"), res.getInt("ticket"));
         }
         res.close();
         conexionBD.desconectar();
@@ -83,7 +83,7 @@ public class BD_ConocimientoDAO {
     }
     
     //Actualizar
-    public boolean actualizar(BD_Conocimiento bd_conocimiento) throws SQLException {
+    public boolean actualizar(Pedido bd_conocimiento) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE BD_CONOCIMIENTO SET id=?, reporte=?, ticket=? WHERE id=?";
         conexionBD.conectar();
@@ -101,7 +101,7 @@ public class BD_ConocimientoDAO {
     }
     
     //eliminar
-    public boolean eliminar(BD_Conocimiento bd_conocimiento) throws SQLException {
+    public boolean eliminar(Pedido bd_conocimiento) throws SQLException {
         boolean rowEliminar = false;
         String sql = "DELETE FROM BD_CONOCIMIENTO WHERE id=?";
         conexionBD.conectar();
