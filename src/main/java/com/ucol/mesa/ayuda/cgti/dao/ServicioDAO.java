@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Servicio;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
 import com.ucol.mesa.ayuda.cgti.model.Vehiculo;
 
 import java.sql.Connection;
@@ -64,7 +64,7 @@ public class ServicioDAO {
             int id_servicio = resulSet.getInt("id_servicio");
             String nombreServicio = resulSet.getString("nombre_servicio");
             //int dependencia = resulSet.getInt("dependencia");
-            Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
+            PlatillosPedidos especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
             Vehiculo vehiculo = vehiculoDAO.obtenerPorId(resulSet.getString("id_vehiculo"));
             int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
             int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
@@ -94,7 +94,7 @@ public class ServicioDAO {
             int id_servicio = resulSet.getInt("id_servicio");
             String nombreServicio = resulSet.getString("nombre_servicio");
             //String especialista = resulSet.getString("especialista");
-            Especialista especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
+            PlatillosPedidos especialista= especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
             Vehiculo vehiculo = vehiculoDAO.obtenerPorId(resulSet.getString("id_vehiculo"));
             int nivelGasolinaInicio = resulSet.getInt("nivel_gas_inicio");
             int nivelGasolinaFin = resulSet.getInt("nivel_gas_fin");
@@ -121,7 +121,7 @@ public class ServicioDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Especialista especialista=especialistaDAO.obtenerPorId(res.getString("especialista"));
+            PlatillosPedidos especialista=especialistaDAO.obtenerPorId(res.getString("especialista"));
             servicio = new Servicio(res.getInt("id_servicio"), res.getString("nombre_servicio"), especialista, res.getString("id_vehiculo"), res.getInt("nivel_gas_inicio"), res.getInt("nivel_gas_fin"), res.getString("fecha"), res.getString("hora"));
             System.out.println(servicio);
         }

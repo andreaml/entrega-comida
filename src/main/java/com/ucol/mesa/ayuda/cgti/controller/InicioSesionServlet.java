@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
 import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
-import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
 import com.ucol.mesa.ayuda.cgti.model.Usuario_;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -102,7 +102,7 @@ public class InicioSesionServlet extends HttpServlet {
         String correo = request.getParameter("correo").replace("%40", "@");
         String contrasenia = request.getParameter("contrasenia").replace("%40", "@");
         System.out.println(correo);
-        Especialista especialista = especialistaDAO.obtenerPorCorreoContrasenia(correo,contrasenia);
+        PlatillosPedidos especialista = especialistaDAO.obtenerPorCorreoContrasenia(correo,contrasenia);
         System.out.println(correo);
         System.out.println(especialista);
         response.setContentType("application/json");

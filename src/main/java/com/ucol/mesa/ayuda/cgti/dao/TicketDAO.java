@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.Ticket;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
 import com.ucol.mesa.ayuda.cgti.model.Servicio;
 import com.ucol.mesa.ayuda.cgti.model.TipoServicio;
 import com.ucol.mesa.ayuda.cgti.model.Usuario;
@@ -122,7 +122,7 @@ public class TicketDAO {
             String comentarios = resulSet.getString("comentario_atencion_usuario");
             int estado_satisfaccion = resulSet.getInt("estado_satisfaccion");
             int estado_ticket = resulSet.getInt("estado_ticket");
-            Especialista especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
+            PlatillosPedidos especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
 
             Ticket ticket = new Ticket(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket);
             ticket.setId_ticket(id_ticket);
@@ -160,7 +160,7 @@ public class TicketDAO {
             String comentarios = resulSet.getString("comentario_atencion_usuario");
             int estado_satisfaccion = resulSet.getInt("estado_satisfaccion");
             int estado_ticket = resulSet.getInt("estado_ticket");
-            Especialista especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
+            PlatillosPedidos especialista = especialistaDAO.obtenerPorId(resulSet.getString("especialista"));
 
             Ticket ticket = new Ticket(titulo, descripcion, tipo_servicio, emisor, fecha, hora, estado_ticket);
             ticket.setId_ticket(id_ticket);
@@ -201,7 +201,7 @@ public class TicketDAO {
             ticket.setServicio(servicio);
             ticket.setComentarios(res.getString("comentario_especialista"));
             ticket.setEstadoSatisfaccion(res.getInt("estado_satisfaccion"));
-            Especialista especialista= especialistaDAO.obtenerPorId(res.getString("especialista"));
+            PlatillosPedidos especialista= especialistaDAO.obtenerPorId(res.getString("especialista"));
             ticket.setEspecialista(especialista);
             
             

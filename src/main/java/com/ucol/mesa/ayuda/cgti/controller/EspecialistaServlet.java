@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
-import com.ucol.mesa.ayuda.cgti.model.Especialista;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -98,7 +98,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));
+        PlatillosPedidos especialista = new PlatillosPedidos(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));
         especialistaDAO.insertar(especialista);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -108,7 +108,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Especialista> listaEspecialista = especialistaDAO.listarEspecialistas();
+        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistas();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -117,7 +117,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
     
     private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        Especialista especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
+        PlatillosPedidos especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -126,7 +126,7 @@ public class EspecialistaServlet extends HttpServlet {
     } 
     
     private void mostrarPorArea(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Especialista> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
+        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -135,7 +135,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Especialista especialista = new Especialista(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));
+        PlatillosPedidos especialista = new PlatillosPedidos(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));
         especialistaDAO.actualizar(especialista, request.getParameter("correoViejo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -145,7 +145,7 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Especialista especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
+        PlatillosPedidos especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
         especialistaDAO.eliminar(especialista);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
