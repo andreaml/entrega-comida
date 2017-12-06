@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
-import com.ucol.mesa.ayuda.cgti.model.AtnUsuarios;
+import com.ucol.mesa.ayuda.cgti.model.Administrador;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +27,7 @@ public class AtnUsuariosDAO {
     }
 
     //Agregar nombreUsuario
-    public boolean insertar(AtnUsuarios atnusuarios) throws SQLException {
+    public boolean insertar(Administrador atnusuarios) throws SQLException {
         String sql = "INSERT INTO ATN_USUARIOS(correo, num_trabajador, dependencia, contrasenia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno) VALUES (?,?,?,?,?,?,?,?)";
         System.out.println(atnusuarios.getCorreo());
         conexionBD.conectar();
@@ -49,9 +49,9 @@ public class AtnUsuariosDAO {
     }
     
     // listar todos los usuarios
-    public List<AtnUsuarios> listarAtnUsuarios() throws SQLException {
+    public List<Administrador> listarAtnUsuarios() throws SQLException {
 
-        List<AtnUsuarios> listaAtnUsuarios = new ArrayList<AtnUsuarios>();
+        List<Administrador> listaAtnUsuarios = new ArrayList<Administrador>();
         String sql = "SELECT * FROM ATN_USUARIOS";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -65,10 +65,10 @@ public class AtnUsuariosDAO {
             String apellido_paterno = resulSet.getString("apellido_paterno");
             String apellido_materno = resulSet.getString("apellido_materno");
             //int dependencia = resulSet.getInt("dependencia");
-            Dependencia dependencia= dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
+            Platillo dependencia= dependenciaDAO.obtenerPorId(resulSet.getInt("dependencia"));
             int num_trabajador = resulSet.getInt("num_trabajador");
 
-            AtnUsuarios atnusuarios = new AtnUsuarios(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador);
+            Administrador atnusuarios = new Administrador(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, dependencia, num_trabajador);
             listaAtnUsuarios.add(atnusuarios);
         }
         conexionBD.desconectar();
@@ -76,8 +76,8 @@ public class AtnUsuariosDAO {
     }
     
     //Obtener por id
-    public AtnUsuarios obtenerPorId(String correo) throws SQLException {
-        AtnUsuarios atnusuarios = null;
+    public Administrador obtenerPorId(String correo) throws SQLException {
+        Administrador atnusuarios = null;
 
         String sql = "SELECT * FROM ATN_USUARIOS WHERE correo=?";
         conexionBD.conectar();
@@ -87,8 +87,8 @@ public class AtnUsuariosDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Dependencia dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
-            atnusuarios = new AtnUsuarios(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), dependencia, res.getInt("num_trabajador"));
+            Platillo dependencia= dependenciaDAO.obtenerPorId(res.getInt("dependencia"));            
+            atnusuarios = new Administrador(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), dependencia, res.getInt("num_trabajador"));
         }
         res.close();
         conexionBD.desconectar();
@@ -97,7 +97,7 @@ public class AtnUsuariosDAO {
     }
     
     //Actualizar
-    public boolean actualizar(AtnUsuarios atnusuarios, String correoViejo) throws SQLException {
+    public boolean actualizar(Administrador atnusuarios, String correoViejo) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE ATN_USUARIOS SET correo=?, num_trabajador=?, dependencia=?, contrasenia=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=? WHERE correo=?";
         conexionBD.conectar();
@@ -120,7 +120,7 @@ public class AtnUsuariosDAO {
     }
     
     //eliminar
-    public boolean eliminar(AtnUsuarios atnusuarios) throws SQLException {
+    public boolean eliminar(Administrador atnusuarios) throws SQLException {
         boolean rowEliminar = false;
         String sql = "DELETE FROM ATN_USUARIOS WHERE correo=?";
         conexionBD.conectar();

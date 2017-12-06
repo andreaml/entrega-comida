@@ -1,7 +1,7 @@
 package com.ucol.mesa.ayuda.cgti.dao;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
-import com.ucol.mesa.ayuda.cgti.model.Especialista;
-import com.ucol.mesa.ayuda.cgti.model.Area;
+import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
+import com.ucol.mesa.ayuda.cgti.model.Cliente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +26,7 @@ public class EspecialistaDAO {
     }
     
     //Insertar especialista
-    public boolean insertar(Especialista especialista)throws SQLException{
+    public boolean insertar(PlatillosPedidos especialista)throws SQLException{
         String sql="INSERT INTO ESPECIALISTA (correo, num_trabajador, area, profesion, contrasenia, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno)VALUES (?,?,?,?,?,?,?,?,?)";
         System.out.println(especialista.getCorreo());
         conexionBD.conectar();
@@ -49,9 +49,9 @@ public class EspecialistaDAO {
     }
     
     // listar todos los especialistas
-    public List<Especialista> listarEspecialistas() throws SQLException {
+    public List<PlatillosPedidos> listarEspecialistas() throws SQLException {
 
-        List<Especialista> listaEspecialistas = new ArrayList<Especialista>();
+        List<PlatillosPedidos> listaEspecialistas = new ArrayList<PlatillosPedidos>();
         String sql = "SELECT * FROM ESPECIALISTA";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -65,11 +65,11 @@ public class EspecialistaDAO {
             String apellidoP = resulSet.getString("apellido_paterno");
             String apellidoM = resulSet.getString("apellido_materno");
             //int area = resulSet.getInt("area");
-            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
+            Cliente area = areaDAO.obtenerPorId(resulSet.getInt("area"));
             int numTrabajador = resulSet.getInt("num_trabajador");
             String profesion = resulSet.getString("profesion");
 
-            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
+            PlatillosPedidos especialista = new PlatillosPedidos(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
             listaEspecialistas.add(especialista);
         }
         conexionBD.desconectar();
@@ -77,9 +77,9 @@ public class EspecialistaDAO {
     }
     
     // listar todos los especialistas por area
-    public List<Especialista> listarEspecialistasPorArea(int idArea) throws SQLException {
+    public List<PlatillosPedidos> listarEspecialistasPorArea(int idArea) throws SQLException {
 
-        List<Especialista> listaEspecialistas = new ArrayList<Especialista>();
+        List<PlatillosPedidos> listaEspecialistas = new ArrayList<PlatillosPedidos>();
         String sql = "SELECT * FROM ESPECIALISTA WHERE area=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -94,11 +94,11 @@ public class EspecialistaDAO {
             String apellidoP = resulSet.getString("apellido_paterno");
             String apellidoM = resulSet.getString("apellido_materno");
             //int area = resulSet.getInt("area");
-            Area area = areaDAO.obtenerPorId(resulSet.getInt("area"));
+            Cliente area = areaDAO.obtenerPorId(resulSet.getInt("area"));
             int numTrabajador = resulSet.getInt("num_trabajador");
             String profesion = resulSet.getString("profesion");
 
-            Especialista especialista = new Especialista(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
+            PlatillosPedidos especialista = new PlatillosPedidos(correo, nombre1, nombre2, apellidoP, apellidoM, area, numTrabajador, profesion);
             listaEspecialistas.add(especialista);
         }
         conexionBD.desconectar();
@@ -106,8 +106,8 @@ public class EspecialistaDAO {
     }
     
     //Obtener especialista por id
-    public Especialista obtenerPorId(String correo) throws SQLException {
-        Especialista especialista = null;
+    public PlatillosPedidos obtenerPorId(String correo) throws SQLException {
+        PlatillosPedidos especialista = null;
 
         String sql = "SELECT * FROM ESPECIALISTA WHERE correo=?";
         conexionBD.conectar();
@@ -116,8 +116,8 @@ public class EspecialistaDAO {
         statement.setString(1, correo);
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Area area = areaDAO.obtenerPorId(res.getInt("area"));
-            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
+            Cliente area = areaDAO.obtenerPorId(res.getInt("area"));
+            especialista = new PlatillosPedidos(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
             especialista.setContrasenia(res.getString("contrasenia"));
         }
         
@@ -127,8 +127,8 @@ public class EspecialistaDAO {
         return especialista;
     }
     
-    public Especialista obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
-        Especialista especialista = null;
+    public PlatillosPedidos obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
+        PlatillosPedidos especialista = null;
 
         String sql = "SELECT * FROM ESPECIALISTA WHERE correo=? AND contrasenia=?";
         conexionBD.conectar();
@@ -138,8 +138,8 @@ public class EspecialistaDAO {
         statement.setString(2, contrasenia);
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Area area = areaDAO.obtenerPorId(res.getInt("area"));
-            especialista = new Especialista(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
+            Cliente area = areaDAO.obtenerPorId(res.getInt("area"));
+            especialista = new PlatillosPedidos(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), area, res.getInt("num_trabajador"), res.getString("profesion"));
             especialista.setContrasenia(res.getString("contrasenia"));
         }
         
@@ -150,7 +150,7 @@ public class EspecialistaDAO {
     }
     
     //Actualizar especialista
-    public boolean actualizar(Especialista especialista, String correoViejo) throws SQLException {
+    public boolean actualizar(PlatillosPedidos especialista, String correoViejo) throws SQLException {
         boolean rowActualizar = false;
         //primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, num_trabajador
         String sql = "UPDATE ESPECIALISTA SET correo=?, primer_nombre=?, segundo_nombre=?, apellido_paterno=?, apellido_materno=?, area=?, num_trabajador=?, contrasenia=?, profesion=? WHERE correo=?";
@@ -175,7 +175,7 @@ public class EspecialistaDAO {
     }
     
     //Eliminar especialista
-    public boolean eliminar(Especialista especialista) throws SQLException {
+    public boolean eliminar(PlatillosPedidos especialista) throws SQLException {
         boolean rowEliminar = false;
         String sql = "DELETE FROM ESPECIALISTA WHERE correo=?";
         conexionBD.conectar();

@@ -3,7 +3,7 @@ package com.ucol.mesa.ayuda.cgti.dao;
 /**
  * @author ASUS
  */
-import com.ucol.mesa.ayuda.cgti.model.Dependencia;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 import com.ucol.mesa.ayuda.cgti.model.ConexionBD;
 
 import java.sql.Connection;
@@ -24,7 +24,7 @@ public class DependenciaDAO {
     }    
     
     //Agregar Dependencia
-    public boolean insertar(Dependencia dependencia ) throws SQLException {
+    public boolean insertar(Platillo dependencia ) throws SQLException {
         String sql = "INSERT INTO DEPENDENCIA(campus, nombre_dependencia, direccion) VALUES (?,?,?)";
         System.out.println(dependencia.getId_dependencia());
         conexionBD.conectar();
@@ -41,9 +41,9 @@ public class DependenciaDAO {
     }
     
     // listar todas los dependencias
-    public List<Dependencia> listarDependencias() throws SQLException {
+    public List<Platillo> listarDependencias() throws SQLException {
 
-        List<Dependencia> listaDependencias = new ArrayList<Dependencia>();
+        List<Platillo> listaDependencias = new ArrayList<Platillo>();
         String sql = "SELECT * FROM DEPENDENCIA";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -56,7 +56,7 @@ public class DependenciaDAO {
             String nombre_dependencia = resulSet.getString("nombre_dependencia");
             String direccion = resulSet.getString("direccion");
 
-            Dependencia dependencia = new Dependencia(campus, nombre_dependencia,direccion);
+            Platillo dependencia = new Platillo(campus, nombre_dependencia,direccion);
             dependencia.setId_dependencia(id_dependencia);
             listaDependencias.add(dependencia);
         }
@@ -65,8 +65,8 @@ public class DependenciaDAO {
     }
     
     //Obtener dependencia por id
-    public Dependencia obtenerPorId(int id_dependencia) throws SQLException {
-        Dependencia dependencia = null;
+    public Platillo obtenerPorId(int id_dependencia) throws SQLException {
+        Platillo dependencia = null;
 
         String sql = "SELECT * FROM DEPENDENCIA WHERE id_dependencia=?";
         conexionBD.conectar();
@@ -76,7 +76,7 @@ public class DependenciaDAO {
       
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            dependencia = new Dependencia(res.getString("campus"), res.getString("nombre_dependencia"), res.getString("direccion"));
+            dependencia = new Platillo(res.getString("campus"), res.getString("nombre_dependencia"), res.getString("direccion"));
             dependencia.setId_dependencia(res.getInt("id_dependencia"));
         }
         res.close();
@@ -86,7 +86,7 @@ public class DependenciaDAO {
     }
     
     //Actualizar dependencia
-    public boolean actualizar(Dependencia dependencia) throws SQLException {
+    public boolean actualizar(Platillo dependencia) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE DEPENDENCIA SET campus=?, nombre_dependencia=?, direccion=? WHERE id_dependencia=?";
         conexionBD.conectar();
@@ -105,7 +105,7 @@ public class DependenciaDAO {
     }
     
     //Eliminar dependencia
-    public boolean eliminar(Dependencia dependencia) throws SQLException {
+    public boolean eliminar(Platillo dependencia) throws SQLException {
         boolean rowEliminar = false;
         String sql = "DELETE FROM DEPENDENCIA WHERE id_dependencia=?";
         conexionBD.conectar();
