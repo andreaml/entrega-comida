@@ -35,7 +35,7 @@
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.VehiculoServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PedidoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
