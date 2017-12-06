@@ -23,7 +23,7 @@ import javax.servlet.ServletContext;
  *
  * @author ricar
  */
-public class AreaServlet extends HttpServlet {
+public class PedidoServlet extends HttpServlet {
 private static final long serialVersionUID = 1L;
     AreaDAO areaDAO;
 
@@ -39,7 +39,7 @@ private static final long serialVersionUID = 1L;
         }
     }
     
-    public AreaServlet() {
+    public PedidoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

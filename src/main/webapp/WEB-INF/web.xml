@@ -47,11 +47,11 @@
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.EspecialistaServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AdministradorServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-AtnUsuariosServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AtnUsuariosServlet</servlet-class>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ClienteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>

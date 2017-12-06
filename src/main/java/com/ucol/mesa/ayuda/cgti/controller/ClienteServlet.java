@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.AtnUsuariosDAO;
-import com.ucol.mesa.ayuda.cgti.model.Administrador;
+import com.ucol.mesa.ayuda.cgti.dao.ClienteDAO;
+import com.ucol.mesa.ayuda.cgti.model.Cliente;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -18,9 +18,9 @@ import javax.servlet.ServletContext;
 /**
  * @author cmiranda
  */
-public class AtnUsuariosServlet extends HttpServlet {
+public class ClienteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    AtnUsuariosDAO atnUsuariosDAO;
+    ClienteDAO clienteDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -28,13 +28,13 @@ public class AtnUsuariosServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            atnUsuariosDAO = new AtnUsuariosDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            clienteDAO = new ClienteDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public AtnUsuariosServlet() {
+    public ClienteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -96,49 +96,49 @@ public class AtnUsuariosServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Administrador atnUsuario = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
+        Cliente cliente = new Cliente(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), request.getParameter("telefono"), request.getParameter("fecha_nacimiento"), request.getParameter("domicilio"), Float.parseFloat(request.getParameter("longitud")), Float.parseFloat(request.getParameter("latitud")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());
-        atnUsuariosDAO.insertar(atnUsuario);
+        clienteDAO.insertar(cliente);
 
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(atnUsuario));
+        out.print(jsonBuilder.toJson(cliente));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Administrador> listaAtnUsuarios = atnUsuariosDAO.listarAtnUsuarios();
+        List<Cliente> listaClientes = clienteDAO.listarClientes();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaAtnUsuarios));
+        out.print(jsonBuilder.toJson(listaClientes));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Administrador atnUsuario = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("dependencia")), Integer.parseInt(request.getParameter("num_trabajador")));
+        Cliente cliente = new Cliente(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), request.getParameter("telefono"), request.getParameter("fecha_nacimiento"), request.getParameter("domicilio"), Float.parseFloat(request.getParameter("longitud")), Float.parseFloat(request.getParameter("latitud")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        atnUsuariosDAO.actualizar(atnUsuario, request.getParameter("correoViejo"));
+        clienteDAO.actualizar(cliente, request.getParameter("correoViejo"));
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(atnUsuario));
+        out.print(jsonBuilder.toJson(cliente));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Administrador atnUsuario = atnUsuariosDAO.obtenerPorId(request.getParameter("correo"));
+        Cliente cliente = clienteDAO.obtenerPorId(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        atnUsuariosDAO.eliminar(atnUsuario);
+        clienteDAO.eliminar(cliente);
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(atnUsuario));
+        out.print(jsonBuilder.toJson(cliente));
     }
     
 }

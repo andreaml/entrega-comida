@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.EspecialistaDAO;
-import com.ucol.mesa.ayuda.cgti.model.PlatillosPedidos;
+import com.ucol.mesa.ayuda.cgti.dao.AdministradorDAO;
+import com.ucol.mesa.ayuda.cgti.model.Administrador;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -18,9 +18,9 @@ import javax.servlet.RequestDispatcher;
 /**
  * @author cmiranda
  */
-public class EspecialistaServlet extends HttpServlet {
+public class AdministradorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    EspecialistaDAO especialistaDAO;
+    AdministradorDAO administradorDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -28,13 +28,13 @@ public class EspecialistaServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            especialistaDAO = new EspecialistaDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            administradorDAO = new AdministradorDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public EspecialistaServlet() {
+    public AdministradorServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,9 +59,6 @@ public class EspecialistaServlet extends HttpServlet {
                         break;
                     case "mostrarPorId":
                         mostrarPorId(request, response);
-                        break;
-                    case "mostrarPorArea":
-                        mostrarPorArea(request, response);
                         break;
                     case "editar":
                         editar(request, response);
@@ -98,55 +95,55 @@ public class EspecialistaServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        PlatillosPedidos especialista = new PlatillosPedidos(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));
-        especialistaDAO.insertar(especialista);
+        Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
+        administradorDAO.insertar(administrador);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(especialista));
+        out.print(jsonBuilder.toJson(administrador));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistas();
+        List<Administrador> listaAdministrador = administradorDAO.listarAdministrador();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaEspecialista));
+        out.print(jsonBuilder.toJson(listaAdministrador));
     }
     
     private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        PlatillosPedidos especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
+        Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(especialista));
+        out.print(jsonBuilder.toJson(administrador));
     } 
     
-    private void mostrarPorArea(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaEspecialista));
-    }
+//    private void mostrarPorArea(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+//        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("utf-8");
+//        PrintWriter out = response.getWriter();
+//        Gson jsonBuilder = new Gson();
+//        out.print(jsonBuilder.toJson(listaEspecialista));
+//    }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        PlatillosPedidos especialista = new PlatillosPedidos(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), Integer.parseInt(request.getParameter("area")), Integer.parseInt(request.getParameter("num_trabajador")), request.getParameter("profesion"));
-        especialistaDAO.actualizar(especialista, request.getParameter("correoViejo"));
+        Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
+        administradorDAO.actualizar(administrador, request.getParameter("correoViejo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(especialista));
+        out.print(jsonBuilder.toJson(administrador));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        PlatillosPedidos especialista = especialistaDAO.obtenerPorId(request.getParameter("correo"));
-        especialistaDAO.eliminar(especialista);
+        Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
+        administradorDAO.eliminar(administrador);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }

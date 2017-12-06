@@ -11,8 +11,8 @@ public class Administrador extends UsuarioGeneral {
         super();
     }
     
-    public Administrador(String correo, String nombre1, String nombre2, String apellidoP, String apellidoM){
-        super(correo, nombre1, nombre2, apellidoP, apellidoM);
+    public Administrador(String correo, String primer_nombre, String segundo_nombre, String apellido_paterno, String apellido_materno){
+        super(correo, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno);
     }
       
     public String getContrasenia() {
