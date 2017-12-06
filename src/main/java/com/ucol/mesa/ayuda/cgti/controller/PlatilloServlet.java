@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ucol.mesa.ayuda.cgti.dao.ServicioDAO;
-import com.ucol.mesa.ayuda.cgti.model.Servicio;
+import com.ucol.mesa.ayuda.cgti.dao.PlatilloDAO;
+import com.ucol.mesa.ayuda.cgti.model.Platillo;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -24,9 +24,9 @@ import javax.servlet.ServletContext;
  *
  * @author andreaml
  */
-public class ServicioServlet extends HttpServlet {
+public class PlatilloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    ServicioDAO servicioDAO;
+    PlatilloDAO platilloDAO;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
@@ -34,13 +34,13 @@ public class ServicioServlet extends HttpServlet {
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
 
-            servicioDAO = new ServicioDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            platilloDAO = new PlatilloDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     
-    public ServicioServlet() {
+    public PlatilloServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -63,8 +63,8 @@ public class ServicioServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
-                    case "mostrarPorEspecialista":
-                        mostrarPorEspecialista(request, response);
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
                         break;
                     case "editar":
                         editar(request, response);
@@ -100,61 +100,61 @@ public class ServicioServlet extends HttpServlet {
         //RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         //dispatcher.forward(request, response);
         ServletContext servletContext= request.getServletContext();
-        servletContext.getRequestDispatcher("/servicios/mostrar.jsp").forward(request, response);
+        servletContext.getRequestDispatcher("/platillo/mostrar.jsp").forward(request, response);
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Servicio servicio = new Servicio(request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("id_vehiculo"), Integer.parseInt(request.getParameter("nivel_gas_inicio")), request.getParameter("fecha"), request.getParameter("hora"));
+        Platillo platillo = new Platillo(Integer.parseInt(request.getParameter("id_platillo")), request.getParameter("nombre_platillo"), Integer.parseInt(request.getParameter("porcion")), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("num_dia")), Float.parseFloat(request.getParameter("costo")), request.getParameter("id_administrador"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());
-        servicioDAO.insertar(servicio);
+        platilloDAO.insertar(platillo);
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(servicio));
+        out.print(jsonBuilder.toJson(platillo));
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Servicio> listaServicios = servicioDAO.listarServicio();
+        List<Platillo> listaPlatillos = platilloDAO.listarServicio();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaServicios));
+        out.print(jsonBuilder.toJson(listaPlatillos));
     }
 
-    private void mostrarPorEspecialista(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Servicio> listaServiciosPorEspecialista = servicioDAO.listarServicioPorEspecialista(request.getParameter("id_especialista"));
+    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<Platillo> listaPlatillosPorId = platilloDAO.listarServicioPorEspecialista(Integer.parseInt(request.getParameter("id_platillo")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaServiciosPorEspecialista));
+        out.print(jsonBuilder.toJson(listaPlatillosPorId));
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = new Servicio(Integer.parseInt(request.getParameter("id_servicio")), request.getParameter("nombre_servicio"), request.getParameter("especialista"), request.getParameter("vehiculo"), Integer.parseInt(request.getParameter("nivel_gas_inicio")), Integer.parseInt(request.getParameter("nivel_gas_fin")),request.getParameter("fecha"), request.getParameter("hora"));
+        Platillo platillo = new Platillo(Integer.parseInt(request.getParameter("id_platillo")), request.getParameter("nombre_platillo"), Integer.parseInt(request.getParameter("porcion")), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("num_dia")), Float.parseFloat(request.getParameter("costo")), request.getParameter("id_administrador"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString()); 
-        servicioDAO.actualizar(servicio);
+        platilloDAO.actualizar(platillo);
         
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(servicio));
+        out.print(jsonBuilder.toJson(platillo));
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Servicio servicio = servicioDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_servicio")));
+        Platillo platillo = platilloDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_platillo")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        servicioDAO.eliminar(servicio);
+        platilloDAO.eliminar(platillo);
                
         Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(servicio));
+        out.print(jsonBuilder.toJson(platillo));
     }
 }

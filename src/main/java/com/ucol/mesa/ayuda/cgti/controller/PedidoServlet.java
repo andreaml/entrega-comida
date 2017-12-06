@@ -134,7 +134,7 @@ public class PedidoServlet extends HttpServlet {
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Pedido pedido = pedidoDAO.obtenerPorId(request.getParameter("id_vehiculo"));
+        Pedido pedido = pedidoDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_pedido")));
         //System.out.println("holamundoeliminado" + pedidoDAO.obtenerPorId(request.getParameter("id_pedido")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
