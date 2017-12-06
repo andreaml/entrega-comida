@@ -63,9 +63,6 @@ public class PlatilloServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
-                    case "mostrarPorId":
-                        mostrarPorId(request, response);
-                        break;
                     case "editar":
                         editar(request, response);
                         break;
@@ -104,7 +101,7 @@ public class PlatilloServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        Platillo platillo = new Platillo(Integer.parseInt(request.getParameter("id_platillo")), request.getParameter("nombre_platillo"), Integer.parseInt(request.getParameter("porcion")), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("num_dia")), Float.parseFloat(request.getParameter("costo")), request.getParameter("id_administrador"));
+        Platillo platillo = new Platillo(request.getParameter("nombre_platillo"), Integer.parseInt(request.getParameter("porcion")), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("num_dia")), Float.parseFloat(request.getParameter("costo")), request.getParameter("id_administrador"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -115,7 +112,7 @@ public class PlatilloServlet extends HttpServlet {
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Platillo> listaPlatillos = platilloDAO.listarServicio();
+        List<Platillo> listaPlatillos = platilloDAO.listarPlatillos();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -124,18 +121,9 @@ public class PlatilloServlet extends HttpServlet {
         out.print(jsonBuilder.toJson(listaPlatillos));
     }
 
-    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Platillo> listaPlatillosPorId = platilloDAO.listarServicioPorEspecialista(Integer.parseInt(request.getParameter("id_platillo")));
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
-        
-        Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(listaPlatillosPorId));
-    }
-
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        Platillo platillo = new Platillo(Integer.parseInt(request.getParameter("id_platillo")), request.getParameter("nombre_platillo"), Integer.parseInt(request.getParameter("porcion")), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("num_dia")), Float.parseFloat(request.getParameter("costo")), request.getParameter("id_administrador"));
+        Platillo platillo = new Platillo(request.getParameter("nombre_platillo"), Integer.parseInt(request.getParameter("porcion")), request.getParameter("descripcion"), Integer.parseInt(request.getParameter("num_dia")), Float.parseFloat(request.getParameter("costo")), request.getParameter("id_administrador"));
+        platillo.setId_platillo(Integer.parseInt(request.getParameter("id_platillo")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
