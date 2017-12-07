@@ -74,7 +74,8 @@ public class PedidoServlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
-                out.print(e.getSQLState());
+                Gson jsonBuilder = new Gson();
+                out.print(jsonBuilder.toJson(e));
             }
         } else {
             try {
