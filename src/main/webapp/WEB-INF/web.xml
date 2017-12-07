@@ -30,95 +30,43 @@
         <jsp-file>/atnUsuarios/inicio.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
+        <servlet-name>PedidoServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PedidoServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
+        <servlet-name>PlatillosServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatilloServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
+        <servlet-name>AdministradorServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AdministradorServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuarios-AtnUsuariosServlet</servlet-name>
+        <servlet-name>ClienteServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.ClienteServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
+        <servlet-name>PlatillosPedidosServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatillosPedidosServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
-        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.AreaServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AtnUsuarios-EvaluacionServicio</servlet-name>
-        <jsp-file>/atnUsuarios/evaluacion-servicio.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>Publico-BD_Conocimiento</servlet-name>
-        <jsp-file>/publico/base-datos-conocimientos.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>Publico-EvaluacionServicio</servlet-name>
-        <jsp-file>/publico/evaluacion-servicio.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>Especialista-Inicio</servlet-name>
-        <jsp-file>/seccionEspecialista/inicio.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>Especialista-Tickets</servlet-name>
-        <jsp-file>/seccionEspecialista/tickets.jsp</jsp-file>
-    </servlet>
     <servlet-mapping>
-        <servlet-name>AtnUsuarios-Inicio</servlet-name>
-        <url-pattern>/atencion-usuarios</url-pattern>
+        <servlet-name>PedidoServlet</servlet-name>
+        <url-pattern>/pedidos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AtnUsuarios-VehiculoServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/vehiculos</url-pattern>
+        <servlet-name>PlatillosServlet</servlet-name>
+        <url-pattern>/platillos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AtnUsuarios-ServicioServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/servicios</url-pattern>
+        <servlet-name>AdministradorServlet</servlet-name>
+        <url-pattern>/administrador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AtnUsuarios-EspecialistaServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/especialistas</url-pattern>
+        <servlet-name>ClienteServlet</servlet-name>
+        <url-pattern>/clientes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AtnUsuarios-AtnUsuariosServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/atencion-usuarios</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-BD_ConocimientoServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/base-datos-conocimiento</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-AreaServlet</servlet-name>
-        <url-pattern>/atencion-usuarios/areas</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AtnUsuarios-EvaluacionServicio</servlet-name>
-        <url-pattern>/atencion-usuarios/evaluacion-servicio</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Publico-BD_Conocimiento</servlet-name>
-        <url-pattern>/base-datos-conocimiento</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Publico-EvaluacionServicio</servlet-name>
-        <url-pattern>/evaluacion-servicio</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Especialista-Inicio</servlet-name>
-        <url-pattern>/especialista</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Especialista-Tickets</servlet-name>
-        <url-pattern>/especialista/tickets</url-pattern>
+        <servlet-name>PlatillosPedidosServlet</servlet-name>
+        <url-pattern>/platillos-pedidos</url-pattern>
     </servlet-mapping>
 </web-app>
