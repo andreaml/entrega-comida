@@ -103,7 +103,7 @@ public class ClienteDAO {
     public Cliente obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
         Cliente cliente = null;
 
-        String sql = "SELECT * FROM administrador WHERE correo=? AND contrasenia=?";
+        String sql = "SELECT * FROM administrador WHERE correo=? AND contrasenia=PASSWORD(?)";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
