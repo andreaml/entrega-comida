@@ -185,156 +185,7 @@
 
                             <!-- Breakfast Panel -->
                             <div role="tabpanel" class="tab-pane active" id="breakfast">
-                                <div class="row">
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item recommended has-border clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Wild Mushroom Bucatini with Kale</h5>
-                                                <p>Mushroom / Veggie / White Sources</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                                <span class="text-medium">Recommended</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item recommended has-border clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Lemon and Garlic Green Beans</h5>
-                                                <p>Lemon / Garlic / Beans</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                                <span class="text-medium">Recommended</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>LambBeef Kofka Skewers with Tzatziki</h5>
-                                                <p>Lamb / Wine / Butter</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Meatloaf with Black Pepper-Honey BBQ</h5>
-                                                <p>Pepper / Chicken / Honey</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Imported Oysters Grill (5 Pieces)</h5>
-                                                <p>Oysters / Veggie / Ginger</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Wild Mushroom Bucatini with Kale</h5>
-                                                <p>Mushroom / Veggie / White Sources</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item recommended has-border clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Lemon and Garlic Green Beans</h5>
-                                                <p>Lemon / Garlic / Beans</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                                <span class="text-medium">Recommended</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Wild Mushroom Bucatini with Kale</h5>
-                                                <p>Mushroom / Veggie / White Sources</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>LambBeef Kofka Skewers with Tzatziki</h5>
-                                                <p>Lamb / Wine / Butter</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Meatloaf with Black Pepper-Honey BBQ</h5>
-                                                <p>Pepper / Chicken / Honey</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Imported Oysters Grill (5 Pieces)</h5>
-                                                <p>Oysters / Veggie / Ginger</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item -->
-                                    <div class="col-sm-6">
-                                        <div class="menu-item clearfix">
-                                            <div class="item-details pull-left">
-                                                <h5>Wild Mushroom Bucatini with Kale</h5>
-                                                <p>Mushroom / Veggie / White Sources</p>
-                                            </div>
-                                            <div class="item-price pull-right">
-                                                <strong class="text-large text-primary">20$</strong>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="row" id="menuDelDia">
                                 </div>
                             </div><!-- End Breakfast Panel-->
                         </div>
@@ -488,38 +339,6 @@
             <!-- End Booking Section -->
 
 
-            <!-- End Booking Section -->
-            <section id="contact" class="contact">
-                <div id="map"></div>
-                <div class="container text-center">
-                    <div class="form-holder">
-                        <header>
-                            <h2>Contact Us</h2>
-                            <h3>Feel free to contact us</h3>
-                        </header>
-
-                        <form method="get" action="#" id="contact-form">
-                            <div class="row">
-                                <label for="user-name" class="col-sm-6 unique">Name
-                                    <input type="text" name="username" id="user-name" required>
-                                </label>
-                                <label for="user-email" class="col-sm-6 unique">Email
-                                    <input type="email" name="useremail" id="user-email" required>
-                                </label>
-                                <label for="message" class="col-sm-12 unique">Your Message
-                                    <textarea name="message" id="message" required></textarea>
-                                </label>
-                                <div class="col-sm-12">
-                                    <button type="submit" class="btn-unique" id="submit">Send</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-            <!-- End Booking Section -->
-
-
             <!-- Footer -->
             <footer id="mainFooter" class="mainFooter">
                 <div class="container">
@@ -543,16 +362,6 @@
                             </ul>
                         </div>
 
-                        <div class="col-md-4 newsletter">
-                            <div class="header">
-                                <h6>Newsletter</h6>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmo.</p>
-                            <form action="#" id="subscribe" class="clearfix">
-                                <input type="email" name="subscribtion-email" placeholder="Enter Your Email Address" class="pull-left">
-                                <button type="submit" class="btn-unique has-border pull-left">Subscribe</button>
-                            </form>
-                        </div>
                     </div>
 
                     <ul class="social list-unstyled list-inline">
@@ -770,7 +579,7 @@
                         "cache-control": "no-cache",
                       },
                       "data": {
-                        "correo": "aliy@ucol.yl",
+                        "correo": "qq@ucol.yl",
                         "contrasenia": "123",
                         "primer_nombre": "José",
                         "segundo_nombre": "Ricardo",
@@ -782,7 +591,38 @@
                     $.ajax(settings).done(function (response) {
                       console.log(response);
                     });
-                })
+                });
+                var opt = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "http://localhost:8084/entrega-comida/platillos?action=mostrar",
+                  "method": "GET",
+                  "headers": {
+                    "cache-control": "no-cache",
+                  }
+                }
+
+                $.ajax(opt).done(function (response) {
+                  console.log(response);
+                  $.each(response, function(id, platillo) {
+                    let tr = $('<div class="col-sm-6">').append(
+                            '<div class="menu-item clearfix">' +
+                            '<div class="item-details pull-left">' +
+                            '<h5>' + platillo.nombre_platillo + '</h5>' +
+                            '<p>' + platillo.descripcion + '</p>' +
+                            '</div>' +
+                            '<div class="item-price pull-right">' +
+                            '<strong class="text-large text-primary">' + platillo.costo + '$</strong>' +
+                            '</div>' +
+                            '</div>'
+                    ); //.appendTo('#records_table');
+                              $("#menuDelDia").append(tr);
+                              //console.log(tr.wrap('<tr>').html());
+                          });
+                  // $.each(response, function(platillo){
+                  //   $("#menuDelDia").append("<h1>"+platillo['nombre_platillo']+"</h1>")
+                  // })
+                });
             });
         </script>
     </body>
