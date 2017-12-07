@@ -28,7 +28,6 @@ public class AdministradorServlet extends HttpServlet {
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
         try {
-
             administradorDAO = new AdministradorDAO(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (Exception e) {
             // TODO: handle exception
@@ -106,7 +105,7 @@ public class AdministradorServlet extends HttpServlet {
     }
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Administrador> listaAdministrador = administradorDAO.listarAdministrador();
+        List<Administrador> listaAdministrador = administradorDAO.listarAdministradores();
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -122,15 +121,6 @@ public class AdministradorServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(administrador));
     } 
-    
-//    private void mostrarPorArea(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-//        List<PlatillosPedidos> listaEspecialista = especialistaDAO.listarEspecialistasPorArea(Integer.parseInt(request.getParameter("id_area")));
-//        response.setContentType("application/json");
-//        response.setCharacterEncoding("utf-8");
-//        PrintWriter out = response.getWriter();
-//        Gson jsonBuilder = new Gson();
-//        out.print(jsonBuilder.toJson(listaEspecialista));
-//    }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));

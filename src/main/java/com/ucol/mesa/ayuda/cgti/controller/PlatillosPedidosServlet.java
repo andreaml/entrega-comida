@@ -63,14 +63,14 @@ public class PlatillosPedidosServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
-                    case "mostrarPorId":
-                        mostrarPorId(request, response);
+                    case "mostrarPorPedidoId":
+                        mostrarPorPedidoId(request, response);
                         break;
                     case "editar":
                         editar(request, response);
                         break;
                     case "eliminar":
-                        eliminar(request, response);
+                        eliminarPorPedidoId(request, response);
                         break;
                     default:
                         break;
@@ -101,7 +101,7 @@ public class PlatillosPedidosServlet extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")), Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
         platillosPedidosDAO.insertar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -119,9 +119,18 @@ public class PlatillosPedidosServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(listaPlatillosPedidos));
     }
+    
+    private void mostrarPorPedidoId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<PlatillosPedidos> listaPlatillosPedidos = platillosPedidosDAO.obtenerPorPedidoId(Integer.parseInt(request.getParameter("id_pedido")));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaPlatillosPedidos));
+    }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")), Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
         platillosPedidosDAO.actualizar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -130,16 +139,15 @@ public class PlatillosPedidosServlet extends HttpServlet {
         out.print(jsonBuilder.toJson(platillosPedidos));
     }
 
-    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        PlatillosPedidos platillosPedidos = platillosPedidosDAO.obtenerPorId(Integer.parseInt(request.getParameter("id_platillos_pedidos")));
+    private void eliminarPorPedidoId(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        platillosPedidosDAO.eliminar(platillosPedidos);
-        
-        Gson jsonBuilder = new Gson();
-        out.print(jsonBuilder.toJson(platillosPedidos));
+        platillosPedidosDAO.eliminarPorPedidos(Integer.parseInt(request.getParameter("id_pedido")));
+        out.print("Platillos eliminados con éxito");
+//        Gson jsonBuilder = new Gson();
+//        out.print(jsonBuilder.toJson(""));
     }
 }

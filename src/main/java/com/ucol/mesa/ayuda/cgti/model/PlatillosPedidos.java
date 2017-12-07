@@ -6,14 +6,22 @@ package com.ucol.mesa.ayuda.cgti.model;
 public class PlatillosPedidos {
     private int id_platillos_pedidos;
     private int id_platillo;
+    private Platillo platillo;
     private int cantidad_platillo;
     private int num_pedido;
     private float subtotal;
     
     
-    public PlatillosPedidos(int id_platillos_pedidos, int id_platillo, int cantidad_platillo, int num_pedido,float subtotal){
-        this.id_platillos_pedidos=id_platillos_pedidos;
+    public PlatillosPedidos(int id_platillo, int cantidad_platillo, int num_pedido,float subtotal){
         this.id_platillo=id_platillo;
+        this.cantidad_platillo=cantidad_platillo;
+        this.num_pedido=num_pedido;
+        this.subtotal=subtotal;
+    }
+    
+    public PlatillosPedidos(int id_platillos_pedidos, Platillo platillo, int cantidad_platillo, int num_pedido,float subtotal){
+        this.id_platillos_pedidos=id_platillos_pedidos;
+        this.platillo=platillo;
         this.cantidad_platillo=cantidad_platillo;
         this.num_pedido=num_pedido;
         this.subtotal=subtotal;
