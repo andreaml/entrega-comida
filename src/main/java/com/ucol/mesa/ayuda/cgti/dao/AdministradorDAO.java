@@ -92,7 +92,7 @@ public class AdministradorDAO {
     public Administrador obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
         Administrador administrador = null;
 
-        String sql = "SELECT * FROM administrador WHERE correo=? AND contrasenia=?";
+        String sql = "SELECT * FROM administrador WHERE correo=? AND contrasenia=PASSWORD(?)";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -102,10 +102,10 @@ public class AdministradorDAO {
         
         if (res.next()) {
             administrador = new Administrador(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"));
-            administrador.setContrasenia(res.getString("contrasenia"));
         }
         
         res.close();
+        statement.close();
         conexionBD.desconectar();
 
         return administrador;
