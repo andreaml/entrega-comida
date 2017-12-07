@@ -46,6 +46,13 @@
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatillosPedidosServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>InicioAdmin</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InicioCliente</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioCliente</servlet-class>
+    </servlet>
         <servlet-name>Inicio</servlet-name>
         <jsp-file>/italiano/index.jsp</jsp-file>
     </servlet>
@@ -72,5 +79,13 @@
     <servlet-mapping>
         <servlet-name>PlatillosPedidosServlet</servlet-name>
         <url-pattern>/platillos-pedidos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioAdmin</servlet-name>
+        <url-pattern>/InicioAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioCliente</servlet-name>
+        <url-pattern>/InicioCliente</url-pattern>
     </servlet-mapping>
 </web-app>

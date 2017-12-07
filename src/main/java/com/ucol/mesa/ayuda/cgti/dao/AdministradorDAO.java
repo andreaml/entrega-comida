@@ -71,7 +71,7 @@ public class AdministradorDAO {
     
     //Obtener por id
     public Administrador obtenerPorId(String correo) throws SQLException {
-        Administrador atnusuarios = null;
+        Administrador administrador = null;
 
         String sql = "SELECT * FROM administrador WHERE correo=?";
         conexionBD.conectar();
@@ -81,12 +81,34 @@ public class AdministradorDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            atnusuarios = new Administrador(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"));
+            administrador = new Administrador(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"));
         }
         res.close();
         conexionBD.desconectar();
 
-        return atnusuarios;
+        return administrador;
+    }
+    
+    public Administrador obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
+        Administrador administrador = null;
+
+        String sql = "SELECT * FROM administrador WHERE correo=? AND contrasenia=PASSWORD(?)";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, correo);
+        statement.setString(2, contrasenia);
+        ResultSet res = statement.executeQuery();
+        
+        if (res.next()) {
+            administrador = new Administrador(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"));
+        }
+        
+        res.close();
+        statement.close();
+        conexionBD.desconectar();
+
+        return administrador;
     }
     
     //Actualizar
