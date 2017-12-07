@@ -139,32 +139,32 @@ $(document).ready(function () {
     // ---------------------------------------------- //
     // Booking form validation
     // ---------------------------------------------- //
-    $('#booking-form, #booking-form-alternative').validate({
-        messages: {
-            name: 'please enter your name',
-            email: 'please enter your email address',
-            number: 'please enter your phone number',
-            people: 'please enter how many people',
-            date: 'please enter booking date',
-            time: 'please enter booking time',
-            request: 'please enter your special request'
-        }
-    });
+//    $('#booking-form, #booking-form-alternative').validate({
+//        messages: {
+//            name: 'please enter your name',
+//            email: 'please enter your email address',
+//            number: 'please enter your phone number',
+//            people: 'please enter how many people',
+//            date: 'please enter booking date',
+//            time: 'please enter booking time',
+//            request: 'please enter your special request'
+//        }
+//    });
 
     // ---------------------------------------------- //
     // Modal booking form validation
     // ---------------------------------------------- //
-    $('#booking-form-alternative').validate({
-        messages: {
-            clientname: 'please enter your name',
-            clientemail: 'please enter your email address',
-            clientnumber: 'please enter your phone number',
-            clientpeople: 'please enter how many people',
-            clientdate: 'please enter booking date',
-            clienttime: 'please enter booking time',
-            clientrequest: 'please enter your special request'
-        }
-    });
+//    $('#booking-form-alternative').validate({
+//        messages: {
+//            clientname: 'please enter your name',
+//            clientemail: 'please enter your email address',
+//            clientnumber: 'please enter your phone number',
+//            clientpeople: 'please enter how many people',
+//            clientdate: 'please enter booking date',
+//            clienttime: 'please enter booking time',
+//            clientrequest: 'please enter your special request'
+//        }
+//    });
 
 
     // ---------------------------------------------- //

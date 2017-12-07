@@ -603,7 +603,7 @@
                                 <h2>Regístrate</h2>
                                 <h3>Pide platillos ahora mismo</h3>
 
-                                <form id="booking-form-alternative" method="get"  action="#">
+                                <form id="registrate">
                                     <div class="row">
                                         <div class="col-md-push-1 col-sm-10">
                                             <div class="row">
@@ -616,7 +616,7 @@
                                                 <label for="cname" class="col-sm-6 unique">Apellido paterno
                                                     <input name="apellido_paterno" type="text" id="apellido_paterno" required>
                                                 </label>
-                                                <label for="cname" class="col-sm-6 unique">Segundo nombre
+                                                <label for="cname" class="col-sm-6 unique">Apellido materno
                                                     <input name="apellido_materno" type="text" id="apellido_materno" required>
                                                 </label>
                                                 <label for="cemail" class="col-sm-6 unique">Correo
@@ -638,7 +638,7 @@
                                                     <div id="mapRegistro"></div>
                                                 </div>
                                                 <div class="col-sm-12">
-                                                    <button type="submit" class="btn-unique">Registrarme</button>
+                                                    <button id="btnRegistrate" class="btn-unique">Registrarme</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -699,6 +699,91 @@
                   }
                 });
               }
+            $(document).ready(function(){
+
+                $("#registrate").validate({
+                    rules: {
+                        primer_nombre, correo: {
+                            required: true,
+                            maxlength: 30,
+                            email: true
+                        },
+                        contrasenia: {
+                            required: true,
+                            password: true,
+                            maxlength: 20
+                        },
+                        creditcard: {
+                            required: true,
+                            creditcard: true
+                        },
+                        telefono: {
+                            required: true,
+                            maxlength:10,
+                            minlength:10,
+                            number: true
+                        },
+                        domicilio: {
+                            required: true,
+                            maxlength:80
+                        },
+                        fecha_nacimiento: {
+                            required: true,
+                            date: true
+                        },
+                    },
+                    messages: {
+                        correo: {
+                            required: "Ingrese un correo valido, por favor",
+                            maxlength: "Tu correo debe de tener maximo 30 caracteres"
+                        },
+                        contrasenia: {
+                            required: "Ingrese una contraseña valida, por favor",
+                            maxlength: "Tu contraseña debe de tener maximo 20 caracteres"
+                        },
+                        creditcard: {
+                            required: "Ingrese un número de tarjeta valido, por favor"
+                        },
+                        telefono: {
+                            required: "Ingrese un número de telefono valido, por favor",
+                            maxlength: "El número debe de tener 10 numeros",
+                            minlength: "El número debe de tener 10 numeros"
+                        },
+                        domicilio: {
+                            required: "Ingrese un domicilio valido, por favor",
+                            maxlength: "Tu domicilio debe de tener maximo 80 caracteres"
+                        },
+                        fecha_nacimiento: {
+                            required: "Ingrese una fecha valida con el siguiente formato, mm/dd/aaaa, por favor"
+                        },
+                    }
+                });    
+                $("#btnRegistrate").unbind('click').on('click', function(e){
+                    e.preventDefault();
+                    var settings = {
+                      "async": true,
+                      "crossDomain": true,
+                      "url": "http://localhost:8084/entrega-comida/administrador?action=registrar",
+                      "method": "POST",
+                      "headers": {
+                        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "cache-control": "no-cache",
+                      },
+                      "data": {
+                        "correo": "aliy@ucol.yl",
+                        "contrasenia": "123",
+                        "primer_nombre": "José",
+                        "segundo_nombre": "Ricardo",
+                        "apellido_paterno": "Mendoza",
+                        "apellido_materno": "Martínez"
+                      }
+                    }
+
+                    $.ajax(settings).done(function (response) {
+                      console.log(response);
+                    });
+                })
+            });
         </script>
     </body>
 </html>
