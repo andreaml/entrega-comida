@@ -57,8 +57,14 @@ public class ClienteServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
+                    case "mostrarPorId":
+                        mostrarPorId(request, response);
+                        break;
                     case "editar":
                         editar(request, response);
+                        break;
+                    case "editarContrasenia":
+                        editarContrasenia(request, response);
                         break;
                     case "eliminar":
                         eliminar(request, response);
@@ -97,6 +103,7 @@ public class ClienteServlet extends HttpServlet {
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Cliente cliente = new Cliente(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), request.getParameter("telefono"), request.getParameter("fecha_nacimiento"), request.getParameter("domicilio"), Float.parseFloat(request.getParameter("longitud")), Float.parseFloat(request.getParameter("latitud")));
+        cliente.setContrasenia(request.getParameter("contrasenia"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -116,6 +123,16 @@ public class ClienteServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(listaClientes));
     }
+    
+    private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        Cliente cliente = clienteDAO.obtenerPorId(request.getParameter("correo"));
+        System.out.println(request.getParameter("correo"));
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(cliente));
+    } 
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Cliente cliente = new Cliente(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"), request.getParameter("telefono"), request.getParameter("fecha_nacimiento"), request.getParameter("domicilio"), Float.parseFloat(request.getParameter("longitud")), Float.parseFloat(request.getParameter("latitud")));
@@ -128,15 +145,25 @@ public class ClienteServlet extends HttpServlet {
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(cliente));
     }
+    
+    private void editarContrasenia(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        System.out.println(response.toString());
+        clienteDAO.actualizarContrasenia(request.getParameter("contrasenia"), request.getParameter("correo"));
+        out.print("Contraseña modificada con éxito");
+//        Gson jsonBuilder = new Gson();
+//        out.print(jsonBuilder.toJson());
+    }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         Cliente cliente = clienteDAO.obtenerPorId(request.getParameter("correo"));
+        clienteDAO.eliminar(cliente);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        clienteDAO.eliminar(cliente);
-        
         Gson jsonBuilder = new Gson();
         out.print(jsonBuilder.toJson(cliente));
     }

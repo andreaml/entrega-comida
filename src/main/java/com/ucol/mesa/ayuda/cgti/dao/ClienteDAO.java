@@ -126,7 +126,7 @@ public class ClienteDAO {
     }
     
     //Actualizar
-    public boolean actualizarContrasenia(String correo, String contrasenia) throws SQLException {
+    public boolean actualizarContrasenia(String contrasenia, String correo) throws SQLException {
         boolean rowActualizar = false;
         String sql = "UPDATE cliente SET contrasenia=PASSWORD(?) WHERE correo=?";
         conexionBD.conectar();

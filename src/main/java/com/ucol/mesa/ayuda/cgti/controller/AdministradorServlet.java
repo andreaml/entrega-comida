@@ -96,6 +96,7 @@ public class AdministradorServlet extends HttpServlet {
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Administrador administrador = new Administrador(request.getParameter("correo"), request.getParameter("primer_nombre"), request.getParameter("segundo_nombre"), request.getParameter("apellido_paterno"), request.getParameter("apellido_materno"));
+        administrador.setContrasenia(request.getParameter("contrasenia"));
         administradorDAO.insertar(administrador);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -115,6 +116,7 @@ public class AdministradorServlet extends HttpServlet {
     
     private void mostrarPorId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         Administrador administrador = administradorDAO.obtenerPorId(request.getParameter("correo"));
+        System.out.println(request.getParameter("correo"));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
