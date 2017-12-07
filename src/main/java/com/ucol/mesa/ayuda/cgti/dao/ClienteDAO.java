@@ -100,6 +100,28 @@ public class ClienteDAO {
         return cliente;
     }
     
+    public Cliente obtenerPorCorreoContrasenia(String correo, String contrasenia) throws SQLException {
+        Cliente cliente = null;
+
+        String sql = "SELECT * FROM administrador WHERE correo=? AND contrasenia=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, correo);
+        statement.setString(2, contrasenia);
+        ResultSet res = statement.executeQuery();
+        
+        if (res.next()) {
+            cliente = new Cliente(res.getString("correo"), res.getString("primer_nombre"), res.getString("segundo_nombre"), res.getString("apellido_paterno"), res.getString("apellido_materno"), res.getString("telefono"), res.getString("fecha_nacimiento"), res.getString("domicilio"), res.getFloat("longitud"), res.getFloat("latitud"));
+            cliente.setContrasenia(res.getString("contrasenia"));
+        }
+        
+        res.close();
+        conexionBD.desconectar();
+
+        return cliente;
+    }
+    
     //Actualizar
     public boolean actualizar(Cliente cliente, String correoViejo) throws SQLException {
         boolean rowActualizar = false;

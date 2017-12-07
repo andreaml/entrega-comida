@@ -53,6 +53,10 @@
         <servlet-name>InicioAdmin</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InicioCliente</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioCliente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PedidoServlet</servlet-name>
         <url-pattern>/pedidos</url-pattern>
@@ -76,5 +80,9 @@
     <servlet-mapping>
         <servlet-name>InicioAdmin</servlet-name>
         <url-pattern>/InicioAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioCliente</servlet-name>
+        <url-pattern>/InicioCliente</url-pattern>
     </servlet-mapping>
 </web-app>
