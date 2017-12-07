@@ -63,6 +63,9 @@ public class PlatilloServlet extends HttpServlet {
                     case "mostrar":
                         mostrar(request, response);
                         break;
+                    case "mostrarPorDia":
+                        mostrarPorDia(request, response);
+                        break;
                     case "editar":
                         editar(request, response);
                         break;
@@ -113,6 +116,16 @@ public class PlatilloServlet extends HttpServlet {
 
     private void mostrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         List<Platillo> listaPlatillos = platilloDAO.listarPlatillos();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        
+        Gson jsonBuilder = new Gson();
+        out.print(jsonBuilder.toJson(listaPlatillos));
+    }
+    
+    private void mostrarPorDia(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        List<Platillo> listaPlatillos = platilloDAO.obtenerPorDia(Integer.parseInt(request.getParameter("num_dia")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
