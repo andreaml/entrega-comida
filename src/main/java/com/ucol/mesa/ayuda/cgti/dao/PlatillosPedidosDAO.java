@@ -28,7 +28,7 @@ public class PlatillosPedidosDAO {
 
     //Agregar nombreUsuario
     public boolean insertar(PlatillosPedidos platillos_pedidos) throws SQLException {
-        String sql = "INSERT INTO platillos_pedidos(id_platillo,cantidad_platillo,num_pedido,subtotal) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO platillos_pedidos(id_platillo,cantidad_platillo,num_pedido,subtotal) VALUES (?,?,?,?)";
         System.out.println(platillos_pedidos.getNum_pedido());
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
@@ -73,14 +73,14 @@ public class PlatillosPedidosDAO {
     }
     
     //Obtener por id
-    public List<PlatillosPedidos> obtenerPorPedidoId(int id_pedido) throws SQLException {
+    public List<PlatillosPedidos> obtenerPorPedidoId(int num_pedido) throws SQLException {
         List<PlatillosPedidos> listaPlatillosPedidos = new ArrayList<>();
 
         String sql = "SELECT * FROM platillos_pedidos WHERE num_pedido=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, id_pedido);
+        statement.setInt(1, num_pedido);
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
@@ -106,7 +106,7 @@ public class PlatillosPedidosDAO {
         statement.setInt(2, platillos_pedidos.getCantidad_platillo());
         statement.setInt(3, platillos_pedidos.getNum_pedido());
         statement.setFloat(4, platillos_pedidos.getSubtotal());
-        statement.setFloat(4, platillos_pedidos.getId_platillos_pedidos());
+        statement.setInt(5, platillos_pedidos.getId_platillos_pedidos());
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();
@@ -116,13 +116,13 @@ public class PlatillosPedidosDAO {
     
     
     //eliminar
-    public boolean eliminarPorPedidos(int id_pedido) throws SQLException {
+    public boolean eliminarPorPedidos(int num_pedido) throws SQLException {
         boolean rowEliminar = false;
         String sql = "DELETE FROM platillos_pedidos WHERE num_pedido=?";
         conexionBD.conectar();
         connection = conexionBD.getJdbcConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, id_pedido);
+        statement.setInt(1, num_pedido);
 
         rowEliminar = statement.executeUpdate() > 0;
         statement.close();

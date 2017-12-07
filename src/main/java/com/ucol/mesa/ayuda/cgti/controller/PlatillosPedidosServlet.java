@@ -121,7 +121,7 @@ public class PlatillosPedidosServlet extends HttpServlet {
     }
     
     private void mostrarPorPedidoId(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<PlatillosPedidos> listaPlatillosPedidos = platillosPedidosDAO.obtenerPorPedidoId(Integer.parseInt(request.getParameter("id_pedido")));
+        List<PlatillosPedidos> listaPlatillosPedidos = platillosPedidosDAO.obtenerPorPedidoId(Integer.parseInt(request.getParameter("num_pedido")));
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
@@ -131,6 +131,7 @@ public class PlatillosPedidosServlet extends HttpServlet {
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         PlatillosPedidos platillosPedidos = new PlatillosPedidos(Integer.parseInt(request.getParameter("id_platillo")), Integer.parseInt(request.getParameter("cantidad_platillo")), Integer.parseInt(request.getParameter("num_pedido")), Float.parseFloat(request.getParameter("subtotal")));
+        platillosPedidos.setId_platillos_pedidos(Integer.parseInt(request.getParameter("id_platillos_pedidos")));
         platillosPedidosDAO.actualizar(platillosPedidos);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -145,7 +146,7 @@ public class PlatillosPedidosServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         System.out.println(response.toString());  
-        platillosPedidosDAO.eliminarPorPedidos(Integer.parseInt(request.getParameter("id_pedido")));
+        platillosPedidosDAO.eliminarPorPedidos(Integer.parseInt(request.getParameter("num_pedido")));
         out.print("Platillos eliminados con éxito");
 //        Gson jsonBuilder = new Gson();
 //        out.print(jsonBuilder.toJson(""));
