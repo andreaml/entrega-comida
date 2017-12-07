@@ -49,6 +49,10 @@
         <servlet-name>PlatillosPedidosServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PlatillosPedidosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InicioAdmin</servlet-name>
+        <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioAdmin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PedidoServlet</servlet-name>
         <url-pattern>/pedidos</url-pattern>
@@ -68,5 +72,9 @@
     <servlet-mapping>
         <servlet-name>PlatillosPedidosServlet</servlet-name>
         <url-pattern>/platillos-pedidos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioAdmin</servlet-name>
+        <url-pattern>/InicioAdmin</url-pattern>
     </servlet-mapping>
 </web-app>
