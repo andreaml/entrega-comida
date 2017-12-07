@@ -60,6 +60,14 @@
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/inicio</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminTablas</servlet-name>
+        <jsp-file>/administrador/tables.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminTablas</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PedidoServlet</servlet-name>
         <url-pattern>/pedidos</url-pattern>
