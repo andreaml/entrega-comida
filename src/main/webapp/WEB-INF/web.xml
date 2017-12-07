@@ -26,10 +26,6 @@
         <param-value>asd123</param-value>
     </context-param>
     <servlet>
-        <servlet-name>AtnUsuarios-Inicio</servlet-name>
-        <jsp-file>/atnUsuarios/inicio.jsp</jsp-file>
-    </servlet>
-    <servlet>
         <servlet-name>PedidoServlet</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.PedidoServlet</servlet-class>
     </servlet>
@@ -57,6 +53,13 @@
         <servlet-name>InicioCliente</servlet-name>
         <servlet-class>com.ucol.mesa.ayuda.cgti.controller.InicioCliente</servlet-class>
     </servlet>
+        <servlet-name>Inicio</servlet-name>
+        <jsp-file>/italiano/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Inicio</servlet-name>
+        <url-pattern>/inicio</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PedidoServlet</servlet-name>
         <url-pattern>/pedidos</url-pattern>

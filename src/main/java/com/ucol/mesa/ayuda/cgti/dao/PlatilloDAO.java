@@ -98,6 +98,29 @@ public class PlatilloDAO {
         return platillo;
     }
     
+    public List<Platillo> obtenerPorDia(int dia) throws SQLException {
+        Platillo platillo = null;
+        List<Platillo> listaPlatillos = new ArrayList<>();
+
+        String sql = "SELECT * FROM platillo WHERE num_dia=?";
+        conexionBD.conectar();
+        connection = conexionBD.getJdbcConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, dia);
+
+        ResultSet res = statement.executeQuery();
+        if (res.next()) {
+            Administrador administrador = administradorDAO.obtenerPorId(res.getString("id_administrador"));
+            platillo = new Platillo(res.getInt("id_platillo"), res.getString("nombre_platillo"), res.getInt("porcion"), res.getString("descripcion"), res.getInt("num_dia"), res.getFloat("costo"), administrador);
+            listaPlatillos.add(platillo);
+        }
+        res.close();
+        statement.close();
+        conexionBD.desconectar();
+
+        return listaPlatillos;
+    }
+    
     //Actualizar
     public boolean actualizar(Platillo platillo) throws SQLException {
         boolean rowActualizar = false;

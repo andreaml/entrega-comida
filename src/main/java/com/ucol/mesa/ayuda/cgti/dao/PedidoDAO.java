@@ -85,7 +85,7 @@ public class PedidoDAO {
 
         ResultSet res = statement.executeQuery();
         if (res.next()) {
-            Cliente cliente = clienteDAO.obtenerPorId(res.getString("id_cliente"));
+            Cliente cliente = clienteDAO.obtenerPorId(res.getString("cliente"));
             pedido = new Pedido(res.getInt("id_pedido"), cliente, res.getString("fecha"), res.getString("hora"), res.getInt("costo_total"), res.getString("estado_pedido"));
         }
         res.close();
@@ -107,7 +107,7 @@ public class PedidoDAO {
         statement.setString(3, pedido.getHora());
         statement.setFloat(4, pedido.getCosto_total());
         statement.setString(5, pedido.getEstado_pedido());
-        statement.setInt(5, pedido.getId_pedido());
+        statement.setInt(6, pedido.getId_pedido());
         
         rowActualizar = statement.executeUpdate() > 0;
         statement.close();

@@ -6,3 +6,4 @@ target/maven-status/
 target/mesa-ayuda-cgti-1.0-SNAPSHOT/
 target/surefire/
 target/test-classes/
+/target/
